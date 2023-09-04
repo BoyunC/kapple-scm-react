@@ -4,13 +4,14 @@ const SearchBar = ({ title }) => {
 	const [item, setItem] = useState("");
 
 	return (
-		<div className="mt-11">
+		<div>
 			{/* 페이지 타이틀 */}
 			<div className="row g-3 mb-4">
 				<div className="col-auto">
-					<h2 className="mb-0" id="pageTitle">
+					<h3 className="mb-2" id="pageTitle">
 						{title} 비교
-					</h2>
+					</h3>
+					<h6 className="text-700 fw-semi-bold">Comparing suggested components</h6>
 				</div>
 			</div>
 
@@ -39,11 +40,11 @@ const SearchBar = ({ title }) => {
 							<span className="fas fa-plus me-2"></span>검색
 						</button>
 						{/* 공급사/부품 추가 버튼 */}
-						<div className="ms-xxl-auto">
+						<div className="ms-auto">
 							<button className="btn btn-primary" id="addSupplierBtn">
 								<span className="fas fa-plus me-2"></span>공급사 추가
 							</button>
-							<button className="btn btn-primary" id="addProdutBtn">
+							<button className="btn btn-primary ms-2" id="addProdutBtn">
 								<span className="fas fa-plus me-2"></span>부품 추가
 							</button>
 						</div>

@@ -41,7 +41,7 @@ const SideBar = () => {
 											<span className="fas fa-caret-right"></span>
 										</div>
 										<span className="nav-link-icon ms-1">
-											<i class="fa-regular fa-pen-to-square"></i>
+											<i className="fa-regular fa-pen-to-square"></i>
 										</span>
 										<span className="nav-link-text">등록(Registration)</span>
 									</div>
@@ -74,7 +74,7 @@ const SideBar = () => {
 											<span className="fas fa-caret-right"></span>
 										</div>
 										<span className="nav-link-icon ms-1">
-											<i class="fa-regular fa-rectangle-list"></i>
+											<i className="fa-regular fa-rectangle-list"></i>
 										</span>
 										<span className="nav-link-text">조회(Search)</span>
 									</div>
@@ -107,7 +107,7 @@ const SideBar = () => {
 											<span className="fas fa-caret-right"></span>
 										</div>
 										<span className="nav-link-icon ms-1">
-											<i class="fa-solid fa-scale-unbalanced-flip"></i>
+											<i className="fa-solid fa-scale-unbalanced-flip"></i>
 										</span>
 										<span className="nav-link-text">비교분석(Comparison)</span>
 									</div>
@@ -141,7 +141,7 @@ const SideBar = () => {
 											<span className="fas fa-caret-right"></span>
 										</div>
 										<span className="nav-link-icon ms-1">
-											<i class="fa-solid fa-chart-line"></i>
+											<i className="fa-solid fa-chart-line"></i>
 										</span>
 										<span className="nav-link-text">통계(Statistics)</span>
 									</div>
