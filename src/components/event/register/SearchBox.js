@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { ComponentDataContext } from "../../../pages/AddSupplier";
 
 const SearchBox = ({ onComponentClick }) => {
+	const { componentData } = useContext(ComponentDataContext);
 	const [components, setComponents] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [searchResults, setSearchResults] = useState([]);
@@ -17,11 +19,7 @@ const SearchBox = ({ onComponentClick }) => {
 			.catch((error) => {
 				console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
 			});
-	}, []);
-
-	const handleComponentClick = (componentName) => {
-		onComponentClick(componentName);
-	};
+	}, [componentData]);
 
 	const handleSearch = () => {
 		setSearchCompleted(true);
@@ -42,7 +40,7 @@ const SearchBox = ({ onComponentClick }) => {
 	};
 
 	return (
-		<>
+		<div style={{ height: "780px" }}>
 			<select className="form-select mb-1 " aria-label="category">
 				<option value="component_name">부품명</option>
 				<option value="component_id">부품번호</option>
@@ -65,7 +63,7 @@ const SearchBox = ({ onComponentClick }) => {
 					{!searchCompleted
 						? components.map((component) => (
 								<div key={component.component_id} className="item-center m-3">
-									<button className="btn btn-phoenix-info p-2 w-100 border-100" onClick={() => onComponentClick(component.component_name)}>
+									<button className="btn btn-phoenix-info p-2 w-100 border-100" onClick={() => onComponentClick(component.component_name, component.component_id)}>
 										<p className="fs-sm--1 mb-1 text-secondary">{component.component_id}</p>
 										<h5 className="mb-1 mt-2 text-primary">{component.component_name}</h5>
 										<p className="fs-sm--2 mb-0 text-secondary">{component.component_unit}</p>
@@ -85,7 +83,7 @@ const SearchBox = ({ onComponentClick }) => {
 						  ))}
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 
