@@ -38,6 +38,15 @@
 }
 
 .tlist {
-	height: 100px;
+	height: 150px;
 	overflow-y: auto;
+}
+
+#head th{
+	background: white;
+}
+th{
+	position: sticky;
+	top: 0;
+	
 }

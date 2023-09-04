@@ -1,8 +1,11 @@
 import { useState } from "react";
 
-const SearchBar = ({ title }) => {
+const SearchBar = ({ title,setSrch }) => {
 	const [item, setItem] = useState("");
+	const onSubmit=()=>{
+		setSrch(item);
 
+	}
 	return (
 		<div>
 			{/* 페이지 타이틀 */}
@@ -36,7 +39,7 @@ const SearchBar = ({ title }) => {
 								<span className="fas fa-search search-box-icon"></span>
 							</form>
 						</div>
-						<button className="btn btn-primary" id="searchItem">
+						<button className="btn btn-primary" id="searchItem" onClick={onSubmit}>
 							<span className="fas fa-plus me-2"></span>검색
 						</button>
 						{/* 공급사/부품 추가 버튼 */}

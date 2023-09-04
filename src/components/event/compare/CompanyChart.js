@@ -3,16 +3,16 @@ import { useState, useEffect, useMemo } from "react";
 import Table from "./Table";
 import CompanyDropdown from "./CompanyDropdown";
 
-const SupplierChart = ({ heads, classification, retailer }) => {
+const CompanyChart = ({ retailer , check, item, setChecked,setSupplNo}) => {
 	const [companys, setCompany] = useState([]);
 	const headers = [
-		{ accessor: "no", Header: "no" },
-		{ accessor: "name", Header: "name" },
-		{ accessor: "ceo", Header: "ceo" },
-		{ accessor: "cate", Header: "cate" },
+		{ accessor: "suppl_no", Header: "no" },
+		{ accessor: "suppl_name", Header: "회사이름" },
+		{ accessor: "ceo_name", Header: "대표자" },
+		{ accessor: "category", Header: "구분" },
 	];
 	if (retailer) {
-		headers.push({ accessor: "scale", Header: "scale" });
+		headers.push({ accessor: "scale_grade", Header: "규모" });
 		headers.push({ Header: "ACTION", Cell: () => <CompanyDropdown /> });
 	} else {
 		headers.push({ Header: "ACTION", Cell: () => <CompanyDropdown /> });
@@ -21,7 +21,9 @@ const SupplierChart = ({ heads, classification, retailer }) => {
 	const data = useMemo(() => companys, [companys]);
 
 	const getSupplier = () => {
-		axios.get("http://localhost:3010/suppliers").then((res) => {
+		axios.get(`http://localhost:8081/comparsionSupplier/${item}`).then((res) => {
+			console.log(1111111);
+			console.log(item);
 			console.log(res.data);
 			setCompany(res.data);
 		});
@@ -35,16 +37,18 @@ const SupplierChart = ({ heads, classification, retailer }) => {
 	};
 
 	useEffect(() => {
-		if (retailer) {
-			getRetailer();
-		} else {
-			getSupplier();
+		if(item!=''){
+			if (retailer) {
+				getRetailer();
+			} else {
+				getSupplier();
+			}
 		}
-	}, []);
-	//console.log(heads);
+
+	}, [item]);
+	//console.log(item);
 	return (
-		<div className="m-1">
-			<div className="mb-9">
+
 				<div className="mx-n3 mt-3">
 					<div className="row g-3">
 						<div className="col-12 col-6 col-6 min-vh-75">
@@ -73,7 +77,7 @@ const SupplierChart = ({ heads, classification, retailer }) => {
 								<div className="card-body py-0 scrollbar to-do-list-body min-vh-xxl-50 h-xl-auto">
 									<div id="supplierTableContainer" dat-list='{"valueNames":["suppl_no","suppl_name","ceo_name","category"],"page":10,"pagination":true}'>
 										<div className="table-responsive mx-n1 px-1">
-											<Table columns={columns} data={data} flag={false} />
+													<Table columns={columns} data={data} flag={false} check={check} item={item} setChecked={setChecked} setSupplNo={setSupplNo}/>
 										</div>
 										<div className="d-flex flex-between-center pt-3 mb-3">
 											<div className="pagination d-none"></div>
@@ -105,9 +109,7 @@ const SupplierChart = ({ heads, classification, retailer }) => {
 						{/* ... */}
 					</div>
 				</div>
-			</div>
-		</div>
 	);
 };
 
-export default SupplierChart;
+export default CompanyChart;

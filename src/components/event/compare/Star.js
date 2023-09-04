@@ -17,26 +17,32 @@ const Star = ({ quality }) => {
 
 	if (quality === 10) {
 		return (
-			<td className="align-middle">
-				{full}
-				{full}
-				{full}
-				{full}
-				{full}
-			</td>
+			<div>
+				<td className="align-middle">
+					{full}
+					{full}
+					{full}
+					{full}
+					{full}
+				</td>
+			</div>
+
 		);
 	} else if (quality === 9) {
 		return (
-			<td className="align-middle">
-				{full}
-				{full}
-				{full}
-				{full}
-				{half}
-			</td>
+			<div>
+				<td className="align-middle">
+					{full}
+					{full}
+					{full}
+					{full}
+					{half}
+				</td>
+			</div>
 		);
 	} else if (quality === 8) {
 		return (
+			<div>
 			<td className="align-middle">
 				{full}
 				{full}
@@ -44,9 +50,11 @@ const Star = ({ quality }) => {
 				{full}
 				{empty}
 			</td>
+		</div>
 		);
 	} else if (quality === 7) {
 		return (
+			<div>
 			<td className="align-middle">
 				{full}
 				{full}
@@ -54,9 +62,12 @@ const Star = ({ quality }) => {
 				{half}
 				{empty}
 			</td>
+		</div>
+
 		);
 	} else if (quality === 6) {
 		return (
+			<div>
 			<td className="align-middle">
 				{full}
 				{full}
@@ -64,9 +75,12 @@ const Star = ({ quality }) => {
 				{empty}
 				{empty}
 			</td>
+		</div>
+
 		);
 	} else if (quality === 5) {
 		return (
+			<div>
 			<td className="align-middle">
 				{full}
 				{full}
@@ -74,9 +88,12 @@ const Star = ({ quality }) => {
 				{empty}
 				{empty}
 			</td>
+		</div>
+
 		);
 	} else if (quality === 4) {
 		return (
+			<div>
 			<td className="align-middle">
 				{full}
 				{full}
@@ -84,19 +101,24 @@ const Star = ({ quality }) => {
 				{empty}
 				{empty}
 			</td>
+		</div>
 		);
 	} else if (quality === 3) {
 		return (
-			<td className="align-middle">
-				{full}
-				{half}
-				{empty}
-				{empty}
-				{empty}
-			</td>
+			<div>
+				<td className="align-middle">
+					{full}
+					{half}
+					{empty}
+					{empty}
+					{empty}
+				</td>
+			</div>
+
 		);
 	} else if (quality === 2) {
 		return (
+			<div>
 			<td className="align-middle">
 				{full}
 				{empty}
@@ -104,9 +126,12 @@ const Star = ({ quality }) => {
 				{empty}
 				{empty}
 			</td>
+			</div>
+
 		);
 	} else if (quality === 1) {
 		return (
+			<div>
 			<td className="align-middle">
 				{half}
 				{empty}
@@ -114,9 +139,12 @@ const Star = ({ quality }) => {
 				{empty}
 				{empty}
 			</td>
+			</div>
+
 		);
 	} else if (quality === 0) {
 		return (
+			<div>
 			<td className="align-middle">
 				{empty}
 				{empty}
@@ -124,6 +152,8 @@ const Star = ({ quality }) => {
 				{empty}
 				{empty}
 			</td>
+			</div>
+
 		);
 	}
 };

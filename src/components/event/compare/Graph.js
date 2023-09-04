@@ -123,7 +123,7 @@ const Graph = ({ proposal, names, maxPrice, maxQuantity, retailer }) => {
 		},
 	});
 
-	return <ECharts option={retailer ? options2 : options} opts={{ renderer: "svg", width: "600px", height: "500px" }} />;
+	return <ECharts option={retailer ? options2 : options} opts={{ renderer: "svg", width: "600px", height: "440px" }} />;
 };
 
 export default Graph;
