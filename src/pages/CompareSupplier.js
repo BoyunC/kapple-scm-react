@@ -1,44 +1,28 @@
 import SearchBar from "../components/event/compare/SearchBar";
-import SupplierChart from "../components/event/compare/CompanyChart";
+import CompanyChart from "../components/event/compare/CompanyChart";
 import ComparsionChart from "../components/event/compare/ComparsionChart";
-import { useMemo, useState, useEffect } from "react";
-import axios from "axios";
+import { useState,useEffect } from "react";
+import axios from 'axios';
 
 const CompareSupplier = () => {
-	const headers = [
-		{ accessor: "no", Header: "no" },
-		{ accessor: "companyName", Header: "name" },
-		{ accessor: "component", Header: "Component" },
-		{ accessor: "price", Header: "price" },
-		{ accessor: "quantity", Header: "quantity" },
-		{ accessor: "defective", Header: "defective" },
-		{ accessor: "quality", Header: "quality" },
-		{ accessor: "prod_period", Header: "period" },
-	];
-	const columns = useMemo(() => headers, []);
+	const [searchContents,setSearchContents] = useState('');
+	const [checked,setChecked] =useState('')
+	const [supplNo,setSupplNo] = useState('');
+	useEffect(()=>{
+		//test();
+	},[searchContents]);
+	useEffect(()=>{
 
-	const [datas, setDatas] = useState([]);
-
-	const getContract = () => {
-		axios.get("http://localhost:3010/contracts").then((res) => {
-			setDatas(res.data);
-			console.log(res.data);
-		});
-	};
-	const data = useMemo(() => datas, [datas]);
-	useEffect(() => {
-		getContract();
-	}, []);
-
+	},[supplNo]);
 	return (
 		<div className="container mt-100">
-			<SearchBar title={"공급 제안"} />
+			<SearchBar title={"공급 제안"} setSrch={setSearchContents}/>
 			<div className="row">
 				<div className="col-lg">
-					<SupplierChart heads={["no", "name", "ceo", "cate"]} classification={"부품"} retailer={false} />
+						<CompanyChart retailer={false} item={searchContents} setChecked={setChecked} setSupplNo={setSupplNo}/>
 				</div>
 				<div className="col-lg">
-					<ComparsionChart heads={["no", "name", "Component", "price", "quantity", "defective", "quality", "period"]} retailer={false} />
+					<ComparsionChart retailer={false} item={searchContents} supplNo={supplNo}/>
 					{/* <Table columns={columns} data={data}/> */}
 				</div>
 			</div>
