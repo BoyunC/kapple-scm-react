@@ -550,7 +550,7 @@
   ],
   "drafts": [
     {
-      "compoId": "COMP1235",
+      "compoId": "COMP1234",
       "price": "ㄴㅇㄹ",
       "quantity": "ㄴㅇㄹ",
       "defectRate": "ㄴㅇㄹ",
@@ -565,7 +565,46 @@
       "companySize": "",
       "address": "ㄴㅇㄹ",
       "isContracted": "",
+      "createdAt": "2023-09-04T14:30:49.536Z",
       "id": 1
+    },
+    {
+      "compoId": "COMP1235",
+      "price": "ㄴㅇㄹ",
+      "quantity": "ㄴㅇㄹ",
+      "defectRate": "ㄷㅈㄱ",
+      "qualityGrade": "B+",
+      "productionPeriod": "ㅈㄷㄱ",
+      "companyName": "ㅇㄽ",
+      "businessNumber": "ㅍ츄",
+      "phoneNumber": "ㅠㅇㄹ",
+      "businessType": "ㅇㅀ",
+      "industry": "ㅇㅀㅇㅀ",
+      "representativeName": "",
+      "companySize": "",
+      "address": "ㅇㅀㅇㅀ",
+      "isContracted": "",
+      "createdAt": "2023. 9. 4.",
+      "id": 2
+    },
+    {
+      "compoId": "",
+      "price": "",
+      "quantity": "",
+      "defectRate": "",
+      "qualityGrade": "",
+      "productionPeriod": "",
+      "companyName": "",
+      "businessNumber": "",
+      "phoneNumber": "",
+      "businessType": "",
+      "industry": "",
+      "representativeName": "",
+      "companySize": "",
+      "address": "",
+      "isContracted": "",
+      "createdAt": "2023. 9. 5.",
+      "id": 3
     }
   ]
 }
