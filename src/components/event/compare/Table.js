@@ -22,7 +22,8 @@ const Table = ({ columns, data, flag, setChecked,setSupplNo }) => {
 							))}
 						</tr>
 					))}
-				</thead>		
+				</thead>
+						
 				<tbody {...getTableBodyProps()}>
 					
 						{rows.map((row) => {
@@ -35,9 +36,9 @@ const Table = ({ columns, data, flag, setChecked,setSupplNo }) => {
 									<td className="align-middle tbody" ><input type="checkbox" id={row.getRowProps().key} onChange={(e)=>{
 										setChecked(e.target.checked);
 										//console.log(e.target.parentElement.parentElement.children[1].innerHTML);
-										if(e.target.checked){
+										//if(e.target.checked){
 											setSupplNo(e.target.parentElement.parentElement.children[1].innerHTML);
-										}
+										//}
 									}} /></td>
 									{row.cells.map((cell) => (
 										// getCellProps는 각 cell data를 호출해낸다

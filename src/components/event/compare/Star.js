@@ -15,7 +15,7 @@ const Star = ({ quality }) => {
 		</svg>
 	);
 
-	if (quality === 10) {
+	if (quality === "10") {
 		return (
 			<div>
 				<td className="align-middle">
@@ -28,7 +28,7 @@ const Star = ({ quality }) => {
 			</div>
 
 		);
-	} else if (quality === 9) {
+	} else if (quality === "9") {
 		return (
 			<div>
 				<td className="align-middle">
@@ -40,7 +40,7 @@ const Star = ({ quality }) => {
 				</td>
 			</div>
 		);
-	} else if (quality === 8) {
+	} else if (quality === "8") {
 		return (
 			<div>
 			<td className="align-middle">
@@ -52,7 +52,7 @@ const Star = ({ quality }) => {
 			</td>
 		</div>
 		);
-	} else if (quality === 7) {
+	} else if (quality === "7") {
 		return (
 			<div>
 			<td className="align-middle">
@@ -65,7 +65,7 @@ const Star = ({ quality }) => {
 		</div>
 
 		);
-	} else if (quality === 6) {
+	} else if (quality === "6") {
 		return (
 			<div>
 			<td className="align-middle">
@@ -78,7 +78,7 @@ const Star = ({ quality }) => {
 		</div>
 
 		);
-	} else if (quality === 5) {
+	} else if (quality === "5") {
 		return (
 			<div>
 			<td className="align-middle">
@@ -91,7 +91,7 @@ const Star = ({ quality }) => {
 		</div>
 
 		);
-	} else if (quality === 4) {
+	} else if (quality === "4") {
 		return (
 			<div>
 			<td className="align-middle">
@@ -103,7 +103,7 @@ const Star = ({ quality }) => {
 			</td>
 		</div>
 		);
-	} else if (quality === 3) {
+	} else if (quality === "3") {
 		return (
 			<div>
 				<td className="align-middle">
@@ -116,7 +116,7 @@ const Star = ({ quality }) => {
 			</div>
 
 		);
-	} else if (quality === 2) {
+	} else if (quality === "2") {
 		return (
 			<div>
 			<td className="align-middle">
@@ -129,7 +129,7 @@ const Star = ({ quality }) => {
 			</div>
 
 		);
-	} else if (quality === 1) {
+	} else if (quality === "1") {
 		return (
 			<div>
 			<td className="align-middle">
@@ -142,7 +142,7 @@ const Star = ({ quality }) => {
 			</div>
 
 		);
-	} else if (quality === 0) {
+	} else if (quality === "0") {
 		return (
 			<div>
 			<td className="align-middle">

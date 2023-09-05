@@ -22,7 +22,6 @@ const CompanyChart = ({ retailer , check, item, setChecked,setSupplNo}) => {
 
 	const getSupplier = () => {
 		axios.get(`http://localhost:8081/comparsionSupplier/${item}`).then((res) => {
-			console.log(1111111);
 			console.log(item);
 			console.log(res.data);
 			setCompany(res.data);
@@ -31,7 +30,6 @@ const CompanyChart = ({ retailer , check, item, setChecked,setSupplNo}) => {
 
 	const getRetailer = () => {
 		axios.get("http://localhost:3010/retailers").then((res) => {
-			//console.log(res.data);
 			setCompany(res.data);
 		});
 	};
@@ -46,7 +44,6 @@ const CompanyChart = ({ retailer , check, item, setChecked,setSupplNo}) => {
 		}
 
 	}, [item]);
-	//console.log(item);
 	return (
 
 				<div className="mx-n3 mt-3">

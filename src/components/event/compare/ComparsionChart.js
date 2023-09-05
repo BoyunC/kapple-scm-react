@@ -6,15 +6,15 @@ import DefectiveRate from "./DefectiveRate";
 import Table from "./Table";
 
 
-const ComparsionChart = ({ retailer,item,supplNo }) => {
+const ComparsionChart = ({ retailer,item,supplNo,checked}) => {
 	const suplHeaders = [
-		{ accessor: "no", Header: "no" },
-		{ accessor: "companyName", Header: "회사이름" },
-		{ accessor: "component", Header: "부품이름" },
+		{ accessor: "proposal_no", Header: "no" },
+		{ accessor: "supplier.suppl_name", Header: "회사이름" },
+		{ accessor: "component.compo_name", Header: "부품이름" },
 		{ accessor: "price", Header: "가격" },
 		{ accessor: "quantity", Header: "수량" },
-		{ accessor: "defective", Header: "불량률", Cell: ({ cell: { value } }) => <DefectiveRate defective={value} /> },
-		{ accessor: "quality", Header: "품질등급", Cell: ({ cell: { value } }) => <Star quality={value} /> },
+		{ accessor: "defective_rate", Header: "불량률", Cell: ({ cell: { value } }) => <DefectiveRate defective={value} /> },
+		{ accessor: "quality_grade", Header: "품질등급", Cell: ({ cell: { value } }) => <Star quality={value} /> },
 		{ accessor: "prod_period", Header: "생산기간" },
 	];
 	const reHeaders = [
@@ -29,35 +29,57 @@ const ComparsionChart = ({ retailer,item,supplNo }) => {
 	const columns = useMemo(() => (retailer ? reHeaders : suplHeaders), []);
 	const [datas, setDatas] = useState([]);
 	const data = useMemo(() => datas, [datas]);
-	let arr=[];
+	const [names,setNames]=useState([]);
+	const [allProposals,setAllProposals] = useState([]);
 	
 
 	const getContract = () => {
+		
 		axios.get(`http://localhost:8081/proposal/${item}/${supplNo}`).then((res) => {
 			console.log(res.data);
-			//setDatas(res.data);
-			arr.push(res.data);
+			let arr=[...datas];
+			let name=[...names];
+			let proposal=[];
+			let p={};
+			let proposals=[...allProposals];
+			if(checked){
+				arr.push(res.data);
+				name.push(res.data.supplier.suppl_name);
+				proposal.push(res.data.price);
+				proposal.push(res.data.quantity);
+				proposal.push(res.data.defective_rate);
+				proposal.push(parseInt(res.data.quality_grade));
+				proposal.push(parseInt(res.data.prod_period));
+				p.value=proposal;
+				p.name=res.data.supplier.suppl_name;
+				proposals.push(proposal);
+			}else{
+				let index=arr.findIndex(e=>e.proposal_no===res.data.proposal_no);
+				arr.splice(index,1);
+				name.splice(index,1);
+				proposals.splice(index,1);
+			}
+			//console.log(arr);
 			setDatas(arr);
-			console.log("db: "+Array.isArray(arr));
+			setNames(name);
+			setAllProposals(proposals);
 		});
 	};
 	const getPredict = () => {
-		// axios.get("http://localhost:3010/predicts").then((res) => {
-		// 	setDatas(res.data);
-		// });
+		axios.get("http://localhost:3010/predicts").then((res) => {
+			setDatas(res.data);
+		});
 	};
 
 	useEffect(() => {
-		if(item!=''&&supplNo!=''){
+		if(item!==''&&supplNo!==''){
 			if (retailer) {
 				getPredict();
 			} else {
 				getContract();
-				console.log("data: "+Array.isArray(data));
 			}
 		}
-
-	}, [supplNo]);
+	}, [supplNo,checked]);
 
 	return (
 
@@ -78,7 +100,7 @@ const ComparsionChart = ({ retailer,item,supplNo }) => {
 								</div>
 							</div>
 							<div>
-								<Graph retailer={retailer} />
+								<Graph retailer={retailer} names={names} proposals={allProposals}/>
 							</div>
 						</div>
 					</div>

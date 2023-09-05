@@ -8,21 +8,21 @@ const CompareSupplier = () => {
 	const [searchContents,setSearchContents] = useState('');
 	const [checked,setChecked] =useState('')
 	const [supplNo,setSupplNo] = useState('');
-	useEffect(()=>{
-		//test();
-	},[searchContents]);
-	useEffect(()=>{
 
-	},[supplNo]);
+	useEffect(()=>{
+	},[searchContents]);
+	// useEffect(()=>{
+	// },[supplNo]);
+
 	return (
 		<div className="container mt-100">
 			<SearchBar title={"공급 제안"} setSrch={setSearchContents}/>
 			<div className="row">
 				<div className="col-lg">
-						<CompanyChart retailer={false} item={searchContents} setChecked={setChecked} setSupplNo={setSupplNo}/>
+						<CompanyChart retailer={false} item={searchContents} setChecked={setChecked} setSupplNo={setSupplNo} />
 				</div>
 				<div className="col-lg">
-					<ComparsionChart retailer={false} item={searchContents} supplNo={supplNo}/>
+					<ComparsionChart retailer={false} item={searchContents} supplNo={supplNo} checked={checked}/>
 					{/* <Table columns={columns} data={data}/> */}
 				</div>
 			</div>
