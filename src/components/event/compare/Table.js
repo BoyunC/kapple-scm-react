@@ -2,13 +2,16 @@ import React from "react";
 import { useTable } from "react-table";
 //import styled from 'styled-components';
 import { useState } from "react";
+import Modal from "./Modal";
 
 // useTable에다가 작성한 columns와 data를 전달한 후 아래 4개의 props를 받아온다
-const Table = ({ columns, data, flag, setChecked,setSupplNo }) => {
+const Table = ({ columns, data, flag, setChecked,setSupplNo,setModalIsOpen,setContract }) => {
 	const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data });
+
 
 	return (
 		<div>
+			
 			{!flag ? (
 			<table {...getTableProps()} className="table table-sm fs--1 mb-0">
 				<thead>
@@ -74,7 +77,13 @@ const Table = ({ columns, data, flag, setChecked,setSupplNo }) => {
 								<tr {...row.getRowProps()}>
 									{row.cells.map((cell) => (
 										// getCellProps는 각 cell data를 호출해낸다
-										<td {...cell.getCellProps()} className="align-middle ps-3 fw-semi-bold text-1000 mb-0">
+										<td {...cell.getCellProps()} className="align-middle ps-3 fw-semi-bold text-1000 mb-0" onClick={()=>{
+											setModalIsOpen(true);
+											console.log(row.cells);
+											setContract(row.cells[0].value);
+											
+											}}>
+											
 											{cell.render("Cell")}
 										</td>
 									))}
@@ -84,6 +93,7 @@ const Table = ({ columns, data, flag, setChecked,setSupplNo }) => {
 					</tbody>
 				</table>
 			</div>)}
+			
 		</div>
 	);
 };

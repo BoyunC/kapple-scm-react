@@ -4,44 +4,44 @@ import React, { useEffect, useState } from "react";
 import ECharts, { EChartsReactProps } from "echarts-for-react";
 
 const Graph = ({ maxPrice, maxQuantity, retailer, names, proposals }) => {
-	console.log(names);
 	
-	const [proposal,setProposal] =useState([]);
+	//const [proposal,setProposal] =useState([]);
+
+	const [options, setOptions] = useState({});
 	useEffect(()=>{
-		setProposal(proposals);
-		console.log(proposal);
-	},[proposals]);
-	const [options, setOptions] = useState({
-		title: {
-			text: "comparison",
-		},
-		legend: {
-			data: names//["a", "b", "c"], //names //공급사 이름
-		},
-		radar: {
-			// shape: 'circle',
-			indicator: [
-				{ name: "단가", max: 100000 },
-				{ name: "수량", max: 10000 },
-				{ name: "불량률", max: 0.1 },
-				{ name: "품질 등급", max: 10 },
-				{ name: "생산 기간", max: 10 },
-			],
-		},
-		series: [
-			{
-				name: "comparison",
-				type: "radar",
-				data:  proposal, //제안 정보  2차 배열 (단가, 수량, 불량률, 품질등급, 생산기간)
+		//setProposal(proposals);
+		setOptions({
+			title: {
+				text: "comparison",
 			},
-		],
-		grid: {
-			left: 50, // 그래프 영역의 왼쪽 여백
-			right: 50, // 그래프 영역의 오른쪽 여백
-			top: 50, // 그래프 영역의 위쪽 여백
-			bottom: 50, // 그래프 영역의 아래쪽 여백
-		},
-	});
+			legend: {
+				data: names//["a", "b", "c"], //names //공급사 이름
+			},
+			radar: {
+				// shape: 'circle',
+				indicator: [
+					{ name: "단가", max: 100000 },
+					{ name: "수량", max: 10000 },
+					{ name: "불량률", max: 0.1 },
+					{ name: "품질 등급", max: 10 },
+					{ name: "생산 기간", max: 10 },
+				],
+			},
+			series: [
+				{
+					name: "comparison",
+					type: "radar",
+					data:  proposals, //제안 정보  2차 배열 (단가, 수량, 불량률, 품질등급, 생산기간)
+				},
+			],
+			grid: {
+				left: 50, // 그래프 영역의 왼쪽 여백
+				right: 50, // 그래프 영역의 오른쪽 여백
+				top: 50, // 그래프 영역의 위쪽 여백
+				bottom: 50, // 그래프 영역의 아래쪽 여백
+			},
+		})
+	},[proposals]);
 	const [options2, setOptions2] = useState({
 		tooltip: {
 			trigger: "axis",
@@ -125,7 +125,6 @@ const Graph = ({ maxPrice, maxQuantity, retailer, names, proposals }) => {
 			bottom: 100, // 그래프 영역의 아래쪽 여백
 		},
 	});
-	console.log(options.series);
 	return <ECharts option={retailer ? options2 : options} opts={{ renderer: "svg", width: "600px", height: "440px" }} />;
 };
 

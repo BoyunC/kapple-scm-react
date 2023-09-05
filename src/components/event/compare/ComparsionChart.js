@@ -6,7 +6,7 @@ import DefectiveRate from "./DefectiveRate";
 import Table from "./Table";
 
 
-const ComparsionChart = ({ retailer,item,supplNo,checked}) => {
+const ComparsionChart = ({ retailer,item,supplNo,checked,setModalIsOpen,setContract}) => {
 	const suplHeaders = [
 		{ accessor: "proposal_no", Header: "no" },
 		{ accessor: "supplier.suppl_name", Header: "회사이름" },
@@ -31,6 +31,7 @@ const ComparsionChart = ({ retailer,item,supplNo,checked}) => {
 	const data = useMemo(() => datas, [datas]);
 	const [names,setNames]=useState([]);
 	const [allProposals,setAllProposals] = useState([]);
+
 	
 
 	const getContract = () => {
@@ -52,7 +53,7 @@ const ComparsionChart = ({ retailer,item,supplNo,checked}) => {
 				proposal.push(parseInt(res.data.prod_period));
 				p.value=proposal;
 				p.name=res.data.supplier.suppl_name;
-				proposals.push(proposal);
+				proposals.push(p);
 			}else{
 				let index=arr.findIndex(e=>e.proposal_no===res.data.proposal_no);
 				arr.splice(index,1);
@@ -96,12 +97,14 @@ const ComparsionChart = ({ retailer,item,supplNo,checked}) => {
 
 							<div id="tableComparsionS">
 								<div className="table-responsive">
-									<Table columns={columns} data={data} flag={true} />
+									<Table columns={columns} data={data} flag={true} setModalIsOpen={setModalIsOpen} setContract={setContract}/>
 								</div>
 							</div>
+													
 							<div>
 								<Graph retailer={retailer} names={names} proposals={allProposals}/>
 							</div>
+							
 						</div>
 					</div>
 				</div>

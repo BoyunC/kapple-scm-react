@@ -9,6 +9,7 @@ import routes from "./routes";
 import { useEffect } from "react";
 
 function App() {
+    
     return (
         <AppProvider>
             <Router>
