@@ -6,19 +6,15 @@ import { ComponentDataContext } from "../../../pages/AddSupplier";
 const ModalAddItem = ({ show, handleClose }) => {
 	const { updateComponentData } = useContext(ComponentDataContext);
 
-	let num = 2000;
-
 	const [formData, setFormData] = useState({
-		component_id: "COM" + num,
-		component_name: "",
-		component_unit: "",
-		component_content: "",
-		component_sort: "cpu",
-		component_sort_detail: "",
+		compo_name: "",
+		unit: "",
+		detail: "",
+		sort: "",
+		sort_detail: "",
 	});
 
 	const handleSortChange = (e) => {
-		num++;
 		const { name, value } = e.target;
 		setFormData((prevData) => ({
 			...prevData,
@@ -28,11 +24,13 @@ const ModalAddItem = ({ show, handleClose }) => {
 
 	const handleAddComponent = () => {
 		axios
-			.post("http://localhost:3010/components", formData)
+			.post("http://localhost:8081/component", formData)
 			.then((response) => {
 				console.log("부품 추가 성공:", response.data);
+
 				const newData = response.data; // 원하는 데이터로 대체
 				updateComponentData(newData); // 업데이트 함수 호출
+
 				handleClose();
 			})
 			.catch((error) => {
@@ -51,7 +49,7 @@ const ModalAddItem = ({ show, handleClose }) => {
 						<label className="col-sm-3 col-form-label fs-sm--1" htmlFor="compoSort">
 							대분류
 						</label>
-						<select className="form-select mb-3" id="compoSort" name="component_sort" aria-label="sort" onChange={handleSortChange}>
+						<select className="form-select mb-3" id="compoSort" name="sort" aria-label="sort" onChange={handleSortChange}>
 							<option value="cpu">CPU(chip)</option>
 							<option value="display">Display</option>
 							<option value="camera">Camera</option>
@@ -63,7 +61,7 @@ const ModalAddItem = ({ show, handleClose }) => {
 						<label className="col-sm-3 col-form-label fs-sm--1" htmlFor="compoSortDetail">
 							소분류
 						</label>
-						<input className="form-control mb-xl-3" id="compoSortDetail" name="component_sort_detail" type="text" placeholder="소분류" onChange={handleSortChange} />
+						<input className="form-control mb-xl-3" id="compoSortDetail" name="sort_detail" type="text" placeholder="소분류" onChange={handleSortChange} />
 					</div>
 				</div>
 
@@ -71,19 +69,19 @@ const ModalAddItem = ({ show, handleClose }) => {
 					부품명
 				</label>
 				<div className="col-sm-12">
-					<input className="form-control text-center fs-sm--1" id="compoName" name="component_name" type="text" onChange={handleSortChange} />
+					<input className="form-control text-center fs-sm--1" id="compoName" name="compo_name" type="text" onChange={handleSortChange} />
 				</div>
 				<label className="col-sm-3 col-form-label fs-sm--1" htmlFor="compoUnit">
 					단위
 				</label>
 				<div className="col-sm-12">
-					<input className="form-control text-center fs-sm--1" id="compoUnit" name="component_unit" type="text" onChange={handleSortChange} />
+					<input className="form-control text-center fs-sm--1" id="compoUnit" name="unit" type="text" onChange={handleSortChange} />
 				</div>
 				<label className="col-sm-3 col-form-label fs-sm--1" htmlFor="compoDetail">
 					부품 설명
 				</label>
 				<div className="col-sm-12 mb-3">
-					<input className="form-control text-center fs-sm--1" id="compoDetail" name="component_content" type="text" onChange={handleSortChange} />
+					<input className="form-control text-center fs-sm--1" id="compoDetail" name="detail" type="text" onChange={handleSortChange} />
 				</div>
 			</Modal.Body>
 			<Modal.Footer>

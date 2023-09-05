@@ -11,7 +11,7 @@ const SearchBox = ({ onComponentClick }) => {
 
 	useEffect(() => {
 		axios
-			.get(`http://localhost:3010/components`)
+			.get(`http://localhost:8081/components`)
 			.then((response) => {
 				setComponents(response.data);
 				console.log(components);
@@ -25,7 +25,7 @@ const SearchBox = ({ onComponentClick }) => {
 		setSearchCompleted(true);
 
 		const filteredComponents = components.filter((component) => {
-			const searchFields = ["component_name", "component_id", "component_content", "component_sort"];
+			const searchFields = ["compo_name", "compo_no", "detail", "sort"];
 			return searchFields.some((field) => {
 				const fieldValue = component[field];
 				if (fieldValue && typeof fieldValue === "string") {
@@ -62,22 +62,22 @@ const SearchBox = ({ onComponentClick }) => {
 				<div>
 					{!searchCompleted
 						? components.map((component) => (
-								<div key={component.component_id} className="item-center m-3">
-									<button className="btn btn-phoenix-info p-2 w-100 border-100" onClick={() => onComponentClick(component.component_name, component.component_id)}>
-										<p className="fs-sm--1 mb-1 text-secondary">{component.component_id}</p>
-										<h5 className="mb-1 mt-2 text-primary">{component.component_name}</h5>
-										<p className="fs-sm--2 mb-0 text-secondary">{component.component_unit}</p>
-										<p className="mb-0 text-secondary">{component.component_content}</p>
+								<div key={component.compon_no} className="item-center m-3">
+									<button className="btn btn-phoenix-info p-2 w-100 border-100" onClick={() => onComponentClick(component.compo_name, component.compo_no)}>
+										<p className="fs-sm--1 mb-1 text-secondary">{component.compo_no}</p>
+										<h5 className="mb-1 mt-2 text-primary">{component.compo_name}</h5>
+										<p className="fs-sm--2 mb-0 text-secondary">{component.unit}</p>
+										<p className="mb-0 text-secondary">{component.detail}</p>
 									</button>
 								</div>
 						  ))
 						: searchResults.map((component) => (
-								<div key={component.component_id} className="item-center m-3">
-									<button className="btn btn-phoenix-info p-2 w-100 border-100" onClick={() => onComponentClick(component.component_name)}>
-										<p className="fs-sm--1 mb-1 text-secondary">{component.component_id}</p>
-										<h5 className="mb-1 mt-2 text-primary">{component.component_name}</h5>
-										<p className="fs-sm--2 mb-0 text-secondary">{component.component_unit}</p>
-										<p className="mb-0 text-secondary">{component.component_content}</p>
+								<div key={component.compon_no} className="item-center m-3">
+									<button className="btn btn-phoenix-info p-2 w-100 border-100" onClick={() => onComponentClick(component.compo_name, component.compo_no)}>
+										<p className="fs-sm--1 mb-1 text-secondary">{component.compo_no}</p>
+										<h5 className="mb-1 mt-2 text-primary">{component.compo_name}</h5>
+										<p className="fs-sm--2 mb-0 text-secondary">{component.unit}</p>
+										<p className="mb-0 text-secondary">{component.detail}</p>
 									</button>
 								</div>
 						  ))}
