@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ModalGetCo from "./ModalGetCo";
+import LogoUpload from "./LogoUpload";
 
 const DetailCo = ({ componentData, updateComponentData }) => {
 	const [showModal, setShowModal] = useState(false);
@@ -67,10 +68,7 @@ const DetailCo = ({ componentData, updateComponentData }) => {
 						<p className="text-700 fs--1 mb-5 ms-1">Product Detail</p>
 					</div>
 					<div className="col-12 col-sm-auto">
-						<input className="d-none" id="avatarFile" type="file" />
-						<label className="cursor-pointer avatar avatar-3xl" htmlFor="avatarFile">
-							<img className="rounded-circle border border-3" src="resources/assets/img/brand2/dell.png" alt="" />
-						</label>
+						<LogoUpload />
 					</div>
 				</div>
 				<div className="row gx-3">
@@ -82,28 +80,28 @@ const DetailCo = ({ componentData, updateComponentData }) => {
 									공급사 불러오기
 								</a>
 							</div>
-							<input className="form-control mb-xl-3" type="text" placeholder="공급사명을 입력하세요." onChange={handleCompanyNameChange} />
+							<input className="form-control mb-xl-3" type="text" placeholder="공급사명을 입력하세요." value={componentData.companyName} onChange={handleCompanyNameChange} />
 						</div>
 					</div>
 					<div className="col-12 d-flex justify-content-between">
 						<div className="w-50">
 							<h5 className="text-1000 ">사업자번호</h5>
-							<input className="form-control mb-xl-3" type="text" placeholder="사업자번호" onChange={handleBusinessNumberChange} />
+							<input className="form-control mb-xl-3" type="text" placeholder="사업자번호" value={componentData.businessNumber} onChange={handleBusinessNumberChange} />
 						</div>
 						<div className="w-50 ms-3">
 							<h5 className="text-1000">대표번호</h5>
-							<input className="form-control mb-xl-3" type="text" placeholder="전화번호" onChange={handlePhoneNumberChange} />
+							<input className="form-control mb-xl-3" type="text" placeholder="전화번호" value={componentData.phoneNumber} onChange={handlePhoneNumberChange} />
 						</div>
 					</div>
 
 					<div className="col-12 d-flex justify-content-between">
 						<div className="w-50">
 							<h5 className="text-1000">업태</h5>
-							<input className="form-control mb-xl-3" type="text" placeholder="업태" onChange={handleBusinessTypeChange} />
+							<input className="form-control mb-xl-3" type="text" placeholder="업태" value={componentData.businessType} onChange={handleBusinessTypeChange} />
 						</div>
 						<div className="w-50 ms-3">
 							<h5 className="text-1000">종목</h5>
-							<input className="form-control mb-xl-3" type="text" placeholder="종목" onChange={handleIndustryChange} />
+							<input className="form-control mb-xl-3" type="text" placeholder="종목" value={componentData.industry} onChange={handleIndustryChange} />
 						</div>
 					</div>
 					<div className="col-12 col-sm-6 col-xl-12">
@@ -111,7 +109,7 @@ const DetailCo = ({ componentData, updateComponentData }) => {
 							<div className="d-flex flex-wrap mb-2">
 								<h5 className="mb-0 text-1000 me-2">주소</h5>
 							</div>
-							<input className="form-control mb-xl-3" type="text" placeholder="주소" onChange={handleAddressChange} />
+							<input className="form-control mb-xl-3" type="text" placeholder="주소" value={componentData.address} onChange={handleAddressChange} />
 						</div>
 					</div>
 					<hr />
@@ -149,11 +147,11 @@ const DetailCo = ({ componentData, updateComponentData }) => {
 									<div className="row g-3 mb-4">
 										<div className="col-12 col-lg-6">
 											<h5 className="mb-2 text-1000">대표자명</h5>
-											<input className="form-control" type="text" placeholder="대표자명" onChange={handleRepresentativeNameChange} />
+											<input className="form-control" type="text" placeholder="대표자명" value={componentData.representativeName} onChange={handleRepresentativeNameChange} />
 										</div>
 										<div className="col-12 col-lg-6">
 											<h5 className="mb-2 text-1000">기업규모</h5>
-											<input className="form-control" type="text" placeholder="기업규모" onChange={handleCompanySizeChange} />
+											<input className="form-control" type="text" placeholder="기업규모" value={componentData.companySize} onChange={handleCompanySizeChange} />
 										</div>
 									</div>
 									<div className="col-12 col-sm-6 col-xl-12">
@@ -195,7 +193,7 @@ const DetailCo = ({ componentData, updateComponentData }) => {
 										<div className="flex-1">
 											<div className="mb-3">
 												<div className="form-check mb-1">
-													<input className="form-check-input" type="radio" name="shippingRadio" id="notContractRadio" checked="checked" onChange={(e) => handleContractRadioChange(e, true)} />
+													<input className="form-check-input" type="radio" name="shippingRadio" id="notContractRadio" checked={!componentData.isContracted ? "checked" : ""} onChange={(e) => handleContractRadioChange(e, true)} />
 													<label className="form-check-label fs-0 text-900 d-flex align-items-center" htmlFor="notContractRadio">
 														계약 미진행 <span className="badge badge-phoenix badge-phoenix-warning fs--1 ms-2">Default</span>
 													</label>
