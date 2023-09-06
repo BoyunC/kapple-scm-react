@@ -1,48 +1,138 @@
-import DetailItem from "../components/event/register/DetailItem";
-import DetailCo from "../components/event/register/DetailCo";
 import { Card } from "react-bootstrap";
 import FileUpload from "../components/event/register/FileUpload";
+import axios from "axios";
+import { useLocation } from 'react-router-dom';
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useEffect, useState } from "react";
+
 const ContractPage = () =>{
+	const {proposal_no} = useParams();
+	const p = new URLSearchParams(proposal_no.search);
+	// let pro=proposal_no.search.substr(1);
+	const [proposal,setProposal] = useState({
+		component:{
+			compo_name: "",
+			compo_no: "",
+			detail: "",
+			unit: ""
+		},
+		defective_rate:0,
+		price:0,
+		prod_period:"",
+		proposal_date:0,
+		proposal_no:"",
+		quality_grade:"",
+		quantity: 0,
+		supplier:{
+			category: "",
+			ceo_name: "",
+			phone: "",
+			suppl_name: "",
+			suppl_no: "",
+		},
+		transport:{
+			additional_condition: null,
+			transport_category: null,
+			transport_charge: null,
+			transport_no: ""
+		}
+	});
+	const [contract,setContract]=useState({
+		contract_no:"",
+		suppl_no:"",
+		compo_no:"",
+		start_date:"",
+		end_date:"",
+		contract_date:"",
+		proposal_no:"",
+	})
+	const sDateHandler = (e)=>{
+		
+		setContract({...contract,start_date:e.target.value});
+	}
+	const eDateHandler = (e)=>{
+		setContract({...contract,end_date:e.target.value});
+	}
+	const cDateHandler = (e)=>{
+		setContract({...contract,contract_date:e.target.value});
+	}
+	const submitContract =()=>{
+		setContract({
+			contract_no:"",
+			suppl_no:proposal.proposal_no,
+			compo_no:proposal.component.compo_no,
+		})
+		console.log(contract);
+		// axios.post(`http://localhost:8081/contract`,contract).then(()=>{
+		// 	console.log("완료");
+		// })
+	}
+	const getProposal =() =>{
+		console.log("get");
+		axios.get(`http://localhost:8081/contract/${proposal_no}`).then((res)=>{
+			setProposal(res.data);
+		})
+	}
+	useEffect(()=>{
+		getProposal();
+	},[contract])
     return(
         <div className="container mt-100">   
-            <div className="col-auto">
-                <h3 className="mb-2">계약 체결</h3>
-                <h6 className="text-700 fw-semi-bold">Sign a Contract</h6>
-            </div>
-            <Card style={{ height: "740px" }}>
+		<div className="mb-4">
+			<div className="d-flex flex-wrap gap-3">
+
+					<div className="col-auto">
+						<h3 className="mb-2">계약 체결</h3>
+						<h6 className="text-700 fw-semi-bold">Sign a proposal</h6>
+					</div>
+					<div className="ms-auto">
+						<button className="btn btn-primary" id="addSupplierBtn" onClick={submitContract}>
+							<span className="fas fa-plus me-2"></span>계약
+						</button>
+						<button className="btn btn-primary ms-2" id="addProdutBtn">
+							<span className="fas fa-plus me-2"></span>수정
+						</button>
+					</div>
+
+			</div>
+			</div>
+			<div className="row g-3 ms-3 mx-3">
+			<div className="col-6 min-vh-75 ">
+            <Card style={{ height: "700px" }}>
 			<div className="card-body ">
 				<h4 className="card-title mb-0">부품 상세</h4>
-				<p className="text-700 fs--1 mb-5 ms-1">Product Detail</p>
+				<p className="text-700 fs--1 mb-5 ms-1">Component Detail</p>
 				<div className="row gx-3">
-					<div className="col-12">
-						<div className="mb-2">
-							<div className="d-flex flex-wrap mb-2">
-								<h5 className="mb-0 text-1000 me-2">부품명</h5>
-								<a className="fw-bold fs--1" href="#!" >
-									부품 추가하기
-								</a>
-							</div>
-							<input className="form-control mb-xl-3" type="text" placeholder="부품명은 왼쪽 부품 버튼을 클릭하면 자동으로 설정됩니다." readOnly disabled  />
+
+					<div className="col-12 d-flex justify-content-between">
+						<div className="w-50">
+							<h5 className="text-1000">부품번호</h5>
+							<input className="form-control mb-xl-3" type="text"  value={proposal.component.compo_no} readOnly disabled  />
 						</div>
+						<div className="w-50 ms-3">
+							<h5 className="text-1000">부품이름</h5>
+							<input className="form-control mb-xl-3" type="text" value={proposal.component.compo_name} readOnly disabled/>
+						</div>
+						
 					</div>
 					<div className="col-12 d-flex justify-content-between">
 						<div className="w-50">
 							<h5 className="text-1000">단가</h5>
-							<input className="form-control mb-xl-3" type="text" placeholder="단가는 숫자만 입력 가능합니다." />
+							<input className="form-control mb-xl-3" type="text"  value={proposal.price} readOnly disabled/>
 						</div>
 						<div className="w-50 ms-3">
 							<h5 className="text-1000">수량</h5>
-							<input className="form-control mb-xl-3" type="text" placeholder="수량은 숫자만 입력 가능합니다."  />
+							<input className="form-control mb-xl-3" type="text"  value={proposal.quantity} readOnly disabled/>
 						</div>
 					</div>
 					<div className="col-12 d-flex justify-content-between">
 						<div className="w-50">
 							<h5 className="text-1000">불량률</h5>
-							<input className="form-control mb-xl-3" type="text" placeholder="불량률" />
+							<input className="form-control mb-xl-3" type="text" value={proposal.defective_rate} readOnly disabled/>
 						</div>
 						<div className="w-50 ms-3">
 							<h5 className="text-1000">생산기간(일)</h5>
-							<input className="form-control mb-xl-3" type="text" placeholder="생산기간"  />
+							<input className="form-control mb-xl-3" type="text" value={proposal.prod_period} readOnly disabled/>
 						</div>
 					</div>
 
@@ -50,25 +140,78 @@ const ContractPage = () =>{
 						<div className="d-flex flex-wrap mb-2">
 							<h5 className="mb-0 text-1000 me-2">품질등급</h5>
 						</div>
-						<select className="form-select mb-3" aria-label="qualityGrade" >
-							<option value="A+">A+</option>
-							<option value="A">A</option>
-							<option value="B+">B+</option>
-							<option value="B">B</option>
-							<option value="C+">C+</option>
-							<option value="C">C</option>
-							<option value="D+">D+</option>
-							<option value="D">D</option>
-						</select>
+						<input className="form-control mb-xl-3" type="text" value={proposal.quality_grade} readOnly disabled/>
 					</div>
 
-					<hr className="mb-2" />
-
-					<FileUpload/>
+					<hr className="mb-2" /> 
+					<div className="w-50">
+							<h5 className="text-1000">계약 날짜</h5>
+							<input className="form-control mb-xl-3" type="date" id="proposal_date" onChange={cDateHandler}/>
+						</div>
+					<div className="col-12 d-flex justify-content-between">
+						<div className="w-50">
+							<h5 className="text-1000">계약 시작일</h5>
+							<input className="form-control mb-xl-3" type="date" onChange={sDateHandler}/>
+						</div>
+						<div className="w-50 ms-3">
+							<h5 className="text-1000">계약 종료일</h5>
+							<input className="form-control mb-xl-3" type="date" onChange={eDateHandler}/>
+						</div>
+					</div>
+					
 				</div>
 			</div>
 		</Card>
-        </div>
+		</div>
+		<div className="col-6 min-vh-75 ">
+		<Card style={{ height: "700px" }}>
+		<div className="card-body">
+				<div className="d-flex justify-content-between">
+					<div className="">
+						<h4 className="card-title mb-0">공급사 상세</h4>
+						<p className="text-700 fs--1 mb-5 ms-1">Supplier Detail</p>
+					</div>
+				</div>
+				<div className="row gx-3">
+					<div className="col-12 col-sm-6 col-xl-12">
+						<div className="mb-4">
+							<div className="d-flex flex-wrap mb-2">
+								<h5 className="mb-0 text-1000 me-2">공급사명</h5>
+							</div>
+							<input className="form-control mb-xl-3" type="text"  value={proposal.supplier.suppl_no} readOnly disabled/>
+						</div>
+					</div>
+					<div className="col-12 d-flex justify-content-between">
+						<div className="w-50">
+							<h5 className="text-1000 ">사업자번호</h5>
+							<input className="form-control mb-xl-3" type="text" />
+						</div>
+						<div className="w-50 ms-3">
+							<h5 className="text-1000">대표번호</h5>
+							<input className="form-control mb-xl-3" type="text"  value={proposal.supplier.phone} readOnly disabled/>
+						</div>
+					</div>
+
+					<div className="col-12 d-flex justify-content-between">
+						<div className="w-50">
+							<h5 className="text-1000">종목</h5>
+							<input className="form-control mb-xl-3" type="text"  value={proposal.supplier.category} readOnly disabled/>
+						</div>
+						<div className="w-50 ms-3">
+							<h5 className="text-1000">대표자명</h5>
+							<input className="form-control mb-xl-3" type="text"  value={proposal.supplier.suppl_no} readOnly disabled/>
+						</div>
+					</div>
+					<div className="d-flex flex-wrap mb-2">
+						<h5 className="mb-0 text-1000 me-2"></h5>
+					</div>
+					<hr />
+				</div>
+			</div>
+		</Card>
+		</div>
+		</div>
+	</div>
     )
 }
 

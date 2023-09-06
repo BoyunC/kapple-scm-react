@@ -79,7 +79,7 @@ const Table = ({ columns, data, flag, setChecked,setSupplNo,setModalIsOpen,setCo
 										// getCellProps는 각 cell data를 호출해낸다
 										<td {...cell.getCellProps()} className="align-middle ps-3 fw-semi-bold text-1000 mb-0" onClick={()=>{
 											setModalIsOpen(true);
-											console.log(row.cells);
+											//console.log(row.cells);
 											setContract(row.cells[0].value);
 											
 											}}>

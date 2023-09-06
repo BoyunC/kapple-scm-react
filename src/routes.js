@@ -42,7 +42,7 @@ const routes = [
         component: ShowChart,
     },
     {
-        path: "/contract",
+        path: `/contract/:proposal_no`,
         component: ContractPage,
     },
 ];
