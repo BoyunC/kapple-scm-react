@@ -1,7 +1,8 @@
 import { useState } from "react";
 import ReactECharts from "echarts-for-react";
+import Graph from "./Graph";
 
-const VarianceCard = ({charts}) => {
+const VarianceCard = () => {
 
     return (
         <div className="card" style={{ height: "auto" }}>
@@ -11,7 +12,7 @@ const VarianceCard = ({charts}) => {
                         <h4 id="comparisonTitle">
                             {charts[0].title 
                                 ? <ReactECharts option={charts[0].title} /> 
-                                : <p>Loading...</p>}</h4>
+                                : <p>Comparison Title Loading...</p>}</h4>
                         <p className="text-700 lh-sm mb-0" 
                             style={{fontSize:'smaller'}}
                             id="comparisonComment">with the previous period</p>
@@ -38,9 +39,10 @@ const VarianceCard = ({charts}) => {
                         </div>
                     </div>
                 </div>
-                {charts[0].option 
+                {/* {charts[0].option  */}
+                {charts[0].option
                     ? <ReactECharts option={charts[0].option} /> 
-                    : <p>Loading...</p>}
+                    : <p>Comparison ECharts Loading...</p>}
             </div>
             {/* <div id="comparisonChart" 
             className="echart-total-sales-chart"

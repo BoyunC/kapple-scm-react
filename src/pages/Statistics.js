@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SummaryCard from "../components/event/chart/SummaryCard";
 import VarianceCard from "../components/event/chart/VarianceCard";
 import AnalyticsCard from "../components/event/chart/AnalyticsCard";
+// import { getList } from "../chartSlice";
 
 // 리덕스 =================================
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import { asyncFetch } from '../chartSlice';
 
 // ========================================
@@ -36,14 +37,11 @@ function Statistics() {
         {}, // chart3
         {}, // chart4
     ]);
-    
-    const status = useSelector(state => {
-        console.log(state.chart.status);
-        return state.chart.status;
-    });
+
+    const status = useSelector(state => state.chart.status);
     const responseDataFromServer = useSelector(state => {
-        console.log(state.chart.value);
-        return state.chart.value;
+        console.log(state.chart.buckets);
+        return state.chart.buckets; 
     });
 
     return (
@@ -62,7 +60,7 @@ function Statistics() {
                 <div className="col-12 col-md-5">
                     <div className="row g-3">
                         <SummaryCard />
-                        <VarianceCard charts={charts} />
+                        <VarianceCard />
                     </div>
                 </div>
 
@@ -75,7 +73,7 @@ function Statistics() {
                                 item.option ? (
                                     <AnalyticsCard key={index} chart={item} />
                                 ) : (
-                                    <p key={index}>Loading...</p>
+                                    <p key={index}>AnalyticsCard Loading...</p>
                                 )
                             ) : null
                         )}
