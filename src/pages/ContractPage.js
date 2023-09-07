@@ -1,14 +1,17 @@
 import { Card } from "react-bootstrap";
 import FileUpload from "../components/event/register/FileUpload";
 import axios from "axios";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect, useState } from "react";
 
+
 const ContractPage = () =>{
 	const {proposal_no} = useParams();
-	const p = new URLSearchParams(proposal_no.search);
+	//const p = new URLSearchParams(proposal_no.search);
 	// let pro=proposal_no.search.substr(1);
+	//console.log(proposal_no);
+	const history =useHistory();
 	const [proposal,setProposal] = useState({
 		component:{
 			compo_name: "",
@@ -57,25 +60,39 @@ const ContractPage = () =>{
 		setContract({...contract,contract_date:e.target.value});
 	}
 	const submitContract =()=>{
-		setContract({
+		setContract({...contract,
 			contract_no:"",
-			suppl_no:proposal.proposal_no,
+			suppl_no:proposal.supplier.suppl_no,
 			compo_no:proposal.component.compo_no,
+			proposal_no:proposal.proposal_no
 		})
-		console.log(contract);
-		// axios.post(`http://localhost:8081/contract`,contract).then(()=>{
-		// 	console.log("완료");
-		// })
+		
+		
+
 	}
 	const getProposal =() =>{
-		console.log("get");
 		axios.get(`http://localhost:8081/contract/${proposal_no}`).then((res)=>{
 			setProposal(res.data);
+			//console.log(res.data);
 		})
 	}
 	useEffect(()=>{
-		getProposal();
+		console.log(contract);
+		if(contract.suppl_no!==''){
+			axios.post(`http://localhost:8081/contract`,contract).then(()=>{
+				console.log("완료");
+				alert("완료");
+				history.push('/contracts');
+
+			})
+		}
 	},[contract])
+	useEffect(()=>{
+		if(proposal_no!==''){
+			getProposal();
+		}
+	},[])
+	
     return(
         <div className="container mt-100">   
 		<div className="mb-4">
@@ -95,7 +112,7 @@ const ContractPage = () =>{
 					</div>
 
 			</div>
-			</div>
+		</div>
 			<div className="row g-3 ms-3 mx-3">
 			<div className="col-6 min-vh-75 ">
             <Card style={{ height: "700px" }}>
@@ -107,32 +124,32 @@ const ContractPage = () =>{
 					<div className="col-12 d-flex justify-content-between">
 						<div className="w-50">
 							<h5 className="text-1000">부품번호</h5>
-							<input className="form-control mb-xl-3" type="text"  value={proposal.component.compo_no} readOnly disabled  />
+							<input className="form-control mb-xl-3" type="text"  value={proposal_no!==undefined?proposal.component.compo_no:''} readOnly={proposal_no===undefined?false:true} disabled={proposal_no===undefined?false:true}  />
 						</div>
 						<div className="w-50 ms-3">
 							<h5 className="text-1000">부품이름</h5>
-							<input className="form-control mb-xl-3" type="text" value={proposal.component.compo_name} readOnly disabled/>
+							<input className="form-control mb-xl-3" type="text" value={proposal_no!==undefined?proposal.component.compo_name:''} readOnly={proposal_no===undefined?false:true} disabled={proposal_no===undefined?false:true}/>
 						</div>
 						
 					</div>
 					<div className="col-12 d-flex justify-content-between">
 						<div className="w-50">
 							<h5 className="text-1000">단가</h5>
-							<input className="form-control mb-xl-3" type="text"  value={proposal.price} readOnly disabled/>
+							<input className="form-control mb-xl-3" type="text"  value={proposal_no!==undefined?proposal.price:''} readOnly={proposal_no===undefined?false:true} disabled={proposal_no===undefined?false:true}/>
 						</div>
 						<div className="w-50 ms-3">
 							<h5 className="text-1000">수량</h5>
-							<input className="form-control mb-xl-3" type="text"  value={proposal.quantity} readOnly disabled/>
+							<input className="form-control mb-xl-3" type="text"  value={proposal_no!==undefined?proposal.quantity:''} readOnly={proposal_no===undefined?false:true} disabled={proposal_no===undefined?false:true}/>
 						</div>
 					</div>
 					<div className="col-12 d-flex justify-content-between">
 						<div className="w-50">
 							<h5 className="text-1000">불량률</h5>
-							<input className="form-control mb-xl-3" type="text" value={proposal.defective_rate} readOnly disabled/>
+							<input className="form-control mb-xl-3" type="text" value={proposal_no!==undefined?proposal.defective_rate:''} readOnly={proposal_no===undefined?false:true} disabled={proposal_no===undefined?false:true}/>
 						</div>
 						<div className="w-50 ms-3">
 							<h5 className="text-1000">생산기간(일)</h5>
-							<input className="form-control mb-xl-3" type="text" value={proposal.prod_period} readOnly disabled/>
+							<input className="form-control mb-xl-3" type="text" value={proposal_no!==undefined?proposal.prod_period:''} readOnly={proposal_no===undefined?false:true} disabled={proposal_no===undefined?false:true}/>
 						</div>
 					</div>
 
@@ -140,7 +157,7 @@ const ContractPage = () =>{
 						<div className="d-flex flex-wrap mb-2">
 							<h5 className="mb-0 text-1000 me-2">품질등급</h5>
 						</div>
-						<input className="form-control mb-xl-3" type="text" value={proposal.quality_grade} readOnly disabled/>
+						<input className="form-control mb-xl-3" type="text" value={proposal_no!==undefined?proposal.quality_grade:''} readOnly={proposal_no===undefined?false:true} disabled={proposal_no===undefined?false:true}/>
 					</div>
 
 					<hr className="mb-2" /> 
@@ -178,7 +195,7 @@ const ContractPage = () =>{
 							<div className="d-flex flex-wrap mb-2">
 								<h5 className="mb-0 text-1000 me-2">공급사명</h5>
 							</div>
-							<input className="form-control mb-xl-3" type="text"  value={proposal.supplier.suppl_no} readOnly disabled/>
+							<input className="form-control mb-xl-3" type="text"  value={proposal_no!==undefined?proposal.supplier.suppl_no:''} readOnly={proposal_no===undefined?false:true} disabled={proposal_no===undefined?false:true}/>
 						</div>
 					</div>
 					<div className="col-12 d-flex justify-content-between">
@@ -188,18 +205,18 @@ const ContractPage = () =>{
 						</div>
 						<div className="w-50 ms-3">
 							<h5 className="text-1000">대표번호</h5>
-							<input className="form-control mb-xl-3" type="text"  value={proposal.supplier.phone} readOnly disabled/>
+							<input className="form-control mb-xl-3" type="text"  value={proposal_no!==undefined?proposal.supplier.phone:''} readOnly={proposal_no===undefined?false:true} disabled={proposal_no===undefined?false:true}/>
 						</div>
 					</div>
 
 					<div className="col-12 d-flex justify-content-between">
 						<div className="w-50">
 							<h5 className="text-1000">종목</h5>
-							<input className="form-control mb-xl-3" type="text"  value={proposal.supplier.category} readOnly disabled/>
+							<input className="form-control mb-xl-3" type="text"  value={proposal_no!==undefined?proposal.supplier.category:''} readOnly={proposal_no===undefined?false:true} disabled={proposal_no===undefined?false:true}/>
 						</div>
 						<div className="w-50 ms-3">
 							<h5 className="text-1000">대표자명</h5>
-							<input className="form-control mb-xl-3" type="text"  value={proposal.supplier.suppl_no} readOnly disabled/>
+							<input className="form-control mb-xl-3" type="text"  value={proposal_no!==undefined?proposal.supplier.suppl_no:''} readOnly={proposal_no===undefined?false:true} disabled={proposal_no===undefined?false:true}/>
 						</div>
 					</div>
 					<div className="d-flex flex-wrap mb-2">
