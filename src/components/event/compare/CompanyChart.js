@@ -10,14 +10,18 @@ const CompanyChart = ({ retailer , check, item, setChecked,setSupplNo}) => {
 		{ accessor: "suppl_name", Header: "회사이름" },
 		{ accessor: "ceo_name", Header: "대표자" },
 		{ accessor: "category", Header: "구분" },
+		{ Header: "ACTION", Cell: () => <CompanyDropdown /> }
 	];
-	if (retailer) {
-		headers.push({ accessor: "scale_grade", Header: "규모" });
-		headers.push({ Header: "ACTION", Cell: () => <CompanyDropdown /> });
-	} else {
-		headers.push({ Header: "ACTION", Cell: () => <CompanyDropdown /> });
-	}
-	const columns = useMemo(() => headers, []);
+	const headers2 = [
+		{ accessor: "retail_no", Header: "no" },
+		{ accessor: "retail_name", Header: "회사이름" },
+		{ accessor: "ceo_name", Header: "대표자" },
+		{ accessor: "category", Header: "구분" },
+		{ accessor: "scale_grade", Header: "규모" },
+		{ Header: "ACTION", Cell: () => <CompanyDropdown /> }
+	];
+
+	const columns = useMemo(() => (retailer ? headers2 : headers), []);
 	const data = useMemo(() => companys, [companys]);
 
 	const getSupplier = () => {
@@ -29,7 +33,7 @@ const CompanyChart = ({ retailer , check, item, setChecked,setSupplNo}) => {
 	};
 
 	const getRetailer = () => {
-		axios.get("http://localhost:3010/retailers").then((res) => {
+		axios.get(`http://localhost:8081/comparsionRetailer/${item}`).then((res) => {
 			setCompany(res.data);
 		});
 	};

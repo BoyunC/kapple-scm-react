@@ -31,6 +31,11 @@ const ComparsionChart = ({ retailer,item,supplNo,checked,setModalIsOpen,setContr
 	const data = useMemo(() => datas, [datas]);
 	const [names,setNames]=useState([]);
 	const [allProposals,setAllProposals] = useState([]);
+	const [prices,setPrices]=useState([]);
+	const [quantitys,setQuantitys]=useState([]);
+	const [defective_rates,setDefective_rates]=useState([]);
+	const [quality_grades,setQuality_grades]=useState([]);
+	const [prod_periods,setProd_periods]=useState([]);
 
 	
 
@@ -43,33 +48,53 @@ const ComparsionChart = ({ retailer,item,supplNo,checked,setModalIsOpen,setContr
 			let proposal=[];
 			let p={};
 			let proposals=[...allProposals];
+			let price=[...prices];
+			let quantity=[...quantitys];
+			let defective_rate=[...defective_rates];
+			let quality_grade=[...quality_grades];
+			let prod_period=[...prod_periods];
 			if(checked){
 				arr.push(res.data);
 				name.push(res.data.supplier.suppl_name);
-				proposal.push(res.data.price);
-				proposal.push(res.data.quantity);
-				proposal.push(res.data.defective_rate);
-				proposal.push(parseInt(res.data.quality_grade));
-				proposal.push(parseInt(res.data.prod_period));
-				p.value=proposal;
-				p.name=res.data.supplier.suppl_name;
-				proposals.push(p);
+				// proposal.push(res.data.price);
+				// proposal.push(res.data.quantity);
+				// proposal.push(res.data.defective_rate);
+				// proposal.push(parseInt(res.data.quality_grade));
+				// proposal.push(parseInt(res.data.prod_period));
+				// p.value=proposal;
+				// p.name=res.data.supplier.suppl_name;
+				// proposals.push(p);
+				price.push(res.data.price);
+				quantity.push(res.data.quantity);
+				defective_rate.push(res.data.defective_rate);
+				quality_grade.push(parseInt(res.data.quality_grade));
+				prod_period.push(parseInt(res.data.prod_period));
 			}else{
 				let index=arr.findIndex(e=>e.proposal_no===res.data.proposal_no);
 				arr.splice(index,1);
 				name.splice(index,1);
-				proposals.splice(index,1);
+				//proposals.splice(index,1);
+				price.splice(index,1);
+				quantity.splice(index,1);
+				defective_rate.splice(index,1);
+				quality_grade.splice(index,1);
+				prod_period.splice(index,1);
 			}
 			//console.log(arr);
 			setDatas(arr);
 			setNames(name);
-			setAllProposals(proposals);
+			//setAllProposals(proposals);
+			setPrices(price);
+			setQuantitys(quantity);
+			setDefective_rates(defective_rate);
+			setQuality_grades(quality_grade);
+			setProd_periods(prod_period);
 		});
 	};
 	const getPredict = () => {
-		axios.get("http://localhost:3010/predicts").then((res) => {
-			setDatas(res.data);
-		});
+		// axios.get("http://localhost:3010/predicts").then((res) => {
+		// 	setDatas(res.data);
+		// });
 	};
 
 	useEffect(() => {
@@ -102,7 +127,9 @@ const ComparsionChart = ({ retailer,item,supplNo,checked,setModalIsOpen,setContr
 							</div>
 													
 							<div>
-								<Graph retailer={retailer} names={names} proposals={allProposals}/>
+								<Graph retailer={retailer} names={names} proposals={allProposals} 
+									prices={prices} quantitys={quantitys} defective_rates={defective_rates} quality_grades={quality_grades} prod_periods={prod_periods}
+								/>
 							</div>
 							
 						</div>

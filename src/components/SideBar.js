@@ -159,6 +159,38 @@ const SideBar = () => {
 									</ul>
 								</div>
 							</div>
+							<div className="nav-item-wrapper">
+								<a className="nav-link dropdown-indicator label-1" href="#nv-statistics" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="nv-project-management">
+									<div className="d-flex align-items-center">
+										<div className="dropdown-indicator-icon">
+											<span className="fas fa-caret-right"></span>
+										</div>
+										<span className="nav-link-icon ms-1">
+											<i className="fa-solid fa-chart-line"></i>
+										</span>
+										<span className="nav-link-text">계약</span>
+									</div>
+								</a>
+								<div className="parent-wrapper label-1">
+									<ul className="nav collapse parent" data-bs-parent="#navbarVerticalCollapse" id="nv-statistics">
+										<li className="collapsed-nav-item-title d-none">계약</li>
+										<li className="nav-item">
+											<Link className="nav-link" to="/contract" data-bs-toggle="" aria-expanded="false">
+												<div className="d-flex align-items-center">
+													<span className="nav-link-text">계약</span>
+												</div>
+											</Link>
+										</li>
+										<li className="nav-item">
+											<Link className="nav-link" to="/contracts" data-bs-toggle="" aria-expanded="false">
+												<div className="d-flex align-items-center">
+													<span className="nav-link-text">계약 조회</span>
+												</div>
+											</Link>
+										</li>
+									</ul>
+								</div>
+							</div>
 						</li>
 
 						<hr className="navbar-vertical-line" />

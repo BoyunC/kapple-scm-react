@@ -19,7 +19,7 @@ const CompareSupplier = () => {
 
 	return (
 		<div className="container mt-100">
-			<Modal isOpen={modalIsOpen} onRequestClose={()=>setModalIsOpen(false)} contract={contract}/>
+			<Modal isOpen={modalIsOpen} onRequestClose={()=>setModalIsOpen(false)} proposal_no={contract}/>
 			<SearchBar title={"공급 제안"} setSrch={setSearchContents}/>
 			<div className="row">
 				<div className="col-lg">

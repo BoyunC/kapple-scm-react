@@ -7,6 +7,7 @@ import RetailerDetail from "./pages/RetailerDetail";
 import ShowChart from "./pages/ShowChart";
 import SupplierDetail from "./pages/SupplierDetail";
 import ContractPage from "./pages/ContractPage";
+import ShowContract from "./pages/ShowContract";
 
 const routes = [
     {
@@ -42,7 +43,17 @@ const routes = [
         component: ShowChart,
     },
     {
-        path: "/contract",
+        path: `/contract`,
+        component: ContractPage,
+    },
+
+    {
+        path: `/contracts`,
+        component: ShowContract,
+    },
+
+    {
+        path: `/contract/:proposal_no`,
         component: ContractPage,
     },
 ];

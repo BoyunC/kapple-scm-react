@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Button, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import ContractPage from '../../../pages/ContractPage';
 //import ReactModal from 'react-modal';
-const ContractModal = ({isOpen,onRequestClose,contract}) =>{
+const ContractModal = ({isOpen,onRequestClose,proposal_no}) =>{
     //ReactModal.setAppElement('#root');
+    console.log(proposal_no);
   return (
     
     <div>
@@ -15,11 +17,11 @@ const ContractModal = ({isOpen,onRequestClose,contract}) =>{
             </div>
             <div className="modal-body">
               <p>선택된 제안으로 계약을 진행하시겠습니까?</p>
-              <p>{contract}</p>
+              <p>{proposal_no}</p>
             </div>
             <div className="modal-footer">
                 
-              <button type="button" className="btn btn-primary"><Link className="nav-link" to="/contract" data-bs-toggle="" aria-expanded="false">계약</Link></button>
+              <button type="button" className="btn btn-primary"><Link className="nav-link" to={`/contract/${proposal_no}`}  data-bs-toggle="" aria-expanded="false">계약</Link></button>
               <button type="button" className="btn btn-secondary" onClick={onRequestClose}>취소</button>
             </div>
           </div>
