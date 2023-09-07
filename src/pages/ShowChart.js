@@ -1,12 +1,22 @@
 
 import { Provider } from "react-redux";
 import { store } from '../chartSlice';
-import AnalyzeStatistics from "./AnalyzeStatistics";
+import Statistics from "./Statistics";
 
 function ShowChart() {
+
+
+
+
+
+
+
+
     return (
         <Provider store={store}>
-            <AnalyzeStatistics/>
+            <div>
+                <Statistics/>
+            </div>
         </Provider>
     );
 }

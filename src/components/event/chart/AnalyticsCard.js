@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
-import axios from "axios";
 import ReactECharts from "echarts-for-react";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -53,8 +51,9 @@ const AnalyticsCard = ({ chart }) => {
 							{chart.period && (
 								<select className="form-select form-select-sm mt-2" 
 									id="selectComparePeriod" value={selectedYear} 
-									onChange={(e) => setSelectedYear(parseInt(e.target.value))}>
-									{yearOptions.map((year, index) => (
+									onChange={
+										(e) => setSelectedYear(parseInt(e.target.value))}>
+										{yearOptions.map((year, index) => (
 										<option key={index}>{year}</option>
 									))}
 								</select>
@@ -78,13 +77,15 @@ const AnalyticsCard = ({ chart }) => {
                             <div className="bullet-item bg-primary me-2"></div>
                             <h6 className="text-900 fw-semi-bold flex-1 mb-0"
                                 id="salesTopText">★Completed</h6>
-                            <h6 className="text-900 fw-semi-bold mb-0" id="salesTopCompleted">★52%</h6>
+                            <h6 className="text-900 fw-semi-bold mb-0" 
+								id="salesTopCompleted">★52%</h6>
                         </div>
                         <div className="d-flex align-items-center">
                             <div className="bullet-item bg-primary-100 me-2"></div>
                             <h6 className="text-900 fw-semi-bold flex-1 mb-0"
                                 id="salesTopAnotherText">★Pending payment</h6>
-                            <h6 className="text-900 fw-semi-bold mb-0" id="salesTopPending">★48%</h6>
+                            <h6 className="text-900 fw-semi-bold mb-0" 
+								id="salesTopPending">★48%</h6>
                         </div> */}
 					</div>
 				</div>
