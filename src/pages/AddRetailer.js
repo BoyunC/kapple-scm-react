@@ -434,27 +434,7 @@ const AddRetailer = () => {
 											</th>
 										</tr>
 									</thead>
-									<tbody className="list" id="draft-details-table-body">
-										{/* <c:forEach items="${draftList}" var="draftList">
-             <tr className="hover-actions-trigger btn-reveal-trigger position-static">
-               <td className="offSuppleName align-middle white-space-nowrap py-2 ps-0"><a className="offEventA fw-semi-bold text-primary" href="#!">${draftList.suppl_name}</a></td>
-               <td className="offDate align-middle text-700 text-center py-2"><fmt:formatDate value="${draftList.proposal_date}" pattern="MMM dd일 hh:mm:ss" /></td>
-               <td className="offCompoName align-middle fw-semi-bold py-2 text-end"><span className="badge badge-phoenix fs--2 badge-phoenix-info">${draftList.compo_name}</span></td>
-               <td hidden className="offCeoName">${draftList.ceo_name}</td>
-               <td hidden className="offCategories">${draftList.categories}</td>
-               <td hidden className="offPhone">${draftList.phone}</td>
-               <td hidden className="offAddress">${draftList.address}</td>
-               <td hidden className="offCompoNo">${draftList.compo_no}</td>
-               <td hidden className="offPrice">${draftList.price}</td>
-               <td hidden className="offQuantitiy">${draftList.quantity}</td>
-               <td hidden className="offDefectiveRate">${draftList.defective_rate}</td>
-               <td hidden className="offQualityGrede">${draftList.quality_grade}</td>
-               <td hidden className="offProdPeriod">${draftList.prod_period}</td>
-               <td hidden className="offAttachFile">${draftList.attachfile}</td>
-               <td hidden className="offLogoPath">${draftList.logopath}</td>
-             </tr>
-           </c:forEach> */}
-									</tbody>
+									<tbody className="list" id="draft-details-table-body"></tbody>
 								</table>
 							</div>
 						</div>
