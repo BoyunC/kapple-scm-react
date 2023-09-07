@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 
-const FileUpload = ({ setUploadedFiles }) => {
+const FileUpload = ({ componentData, updateComponentData, setUploadedFiles }) => {
 	const [files, setFiles] = useState([]);
 
 	const { getRootProps, getInputProps } = useDropzone({
@@ -44,6 +44,7 @@ const FileUpload = ({ setUploadedFiles }) => {
 				},
 			});
 
+			updateComponentData({ has_file: true });
 			console.log("파일 업로드 성공:", response.data);
 		} catch (error) {
 			console.error("파일 업로드 오류:", error);
@@ -63,6 +64,12 @@ const FileUpload = ({ setUploadedFiles }) => {
 			return `${(size / (1024 * 1024)).toFixed(2)} MB`;
 		}
 	};
+
+	useEffect(() => {
+		if (componentData.has_file === false) {
+			setFiles([]);
+		}
+	}, [componentData.has_file]);
 
 	return (
 		<div className="col-12 mt-3 mb-5">

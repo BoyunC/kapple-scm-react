@@ -40,7 +40,7 @@ const SearchBox = ({ onComponentClick }) => {
 	};
 
 	return (
-		<div style={{ height: "780px" }}>
+		<div style={{ height: "800px" }}>
 			<select className="form-select mb-1 " aria-label="category">
 				<option value="component_name">부품명</option>
 				<option value="component_id">부품번호</option>
