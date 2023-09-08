@@ -58,7 +58,7 @@ const CompanyChart = ({ retailer , check, item, setChecked,setComNo}) => {
 									<div className="row justify-content-between align-items-center mb-4">
 										<div className="col-auto" id="head">
 											<h3 className="text-1100" id="supplierCardTitle">
-												{retailer ? "상품" : "부품"}을 검색해주세요
+												{item===''?`${retailer ? "상품" : "부품"}을 검색해주세요`:item}
 											</h3>
 											<p className="mb-0 text-700"></p>
 										</div>

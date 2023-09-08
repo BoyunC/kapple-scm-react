@@ -40,7 +40,7 @@ const Table = ({ columns, data, flag, setChecked,setComNo,setModalIsOpen,setCont
 										setChecked(e.target.checked);
 										//console.log(e.target.parentElement.parentElement.children[1].innerHTML);
 										//if(e.target.checked){
-											setComNo(e.target.parentElement.parentElement.children[1].innerHTML);
+										setComNo(e.target.parentElement.parentElement.children[1].innerHTML);
 										//}
 									}} /></td>
 									{row.cells.map((cell) => (

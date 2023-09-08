@@ -66,7 +66,19 @@ const ContractPage = () =>{
 			compo_no:proposal.component.compo_no,
 			proposal_no:proposal.proposal_no
 		})
-		
+		if(contract.suppl_no!==''){
+			if(contract.contract_date!==''&&contract.start_date!==''&&contract.end_date!==''){
+				axios.post(`http://localhost:8081/contract`,contract).then(()=>{
+					console.log("완료");
+					alert("완료");
+					history.push('/contracts');
+	
+				})
+			}else{
+				alert("날짜를 입력해주세요");
+			}
+
+		}
 		
 
 	}
@@ -78,14 +90,7 @@ const ContractPage = () =>{
 	}
 	useEffect(()=>{
 		console.log(contract);
-		if(contract.suppl_no!==''){
-			axios.post(`http://localhost:8081/contract`,contract).then(()=>{
-				console.log("완료");
-				alert("완료");
-				history.push('/contracts');
 
-			})
-		}
 	},[contract])
 	useEffect(()=>{
 		if(proposal_no!==''){
