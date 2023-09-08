@@ -107,6 +107,113 @@ const ShowContract = ()=>{
                                 <h3 className="text-1100">계약 상세</h3>
                              </div>
                             <p className="text-700 mb-4">Contract Detail</p>
+
+				<div className="row gx-3">
+                    <div className="card-title mb-3">
+                        <h4 className="text-1100">제안 정보</h4>
+                    </div>
+                    <div className="col-12 d-flex justify-content-between">
+						<div className="w-50">
+							<h5 className="text-1000">제안 번호</h5>
+							<input className="form-control mb-xl-3" type="text"  />
+						</div>
+						<div className="w-50 ms-3">
+							<h5 className="text-1000">계약 일자</h5>
+							<input className="form-control mb-xl-3" type="text"  />
+						</div>
+					</div>
+					<div className="col-12 d-flex justify-content-between">
+						<div className="w-50">
+							<h5 className="text-1000 ">회사번호</h5>
+							<input className="form-control mb-xl-3" type="text" />
+						</div>
+						<div className="w-50 ms-3">
+							<h5 className="text-1000">부품번호</h5>
+							<input className="form-control mb-xl-3" type="text"  />
+						</div>
+					</div>
+
+					<div className="col-12 d-flex justify-content-between">
+						<div className="w-50">
+							<h5 className="text-1000">가격</h5>
+							<input className="form-control mb-xl-3" type="text"  />
+						</div>
+						<div className="w-50 ms-3">
+							<h5 className="text-1000">수량</h5>
+							<input className="form-control mb-xl-3" type="text"  />
+						</div>
+					</div>
+				<hr/>
+				</div>
+                <div className="card-title mb-3">
+                    <h4 className="text-1100">회사 및 부품 정보</h4>
+                </div>
+                <div className="row g-0 border-top border-bottom border-300" style={{ height: "260px", maxHeight: "260px" }}>
+						<div className="col-sm-2">
+							<div className="nav flex-sm-column border-bottom border-bottom-sm-0 border-end-sm border-300 fs--1 vertical-tab h-100 justify-content-between" role="tablist" aria-orientation="vertical">
+								<a className="nav-link border-end border-end-sm-0 border-bottom-sm border-300 text-center text-sm-start cursor-pointer outline-none d-sm-flex align-items-sm-center active" id="pricingTab" data-bs-toggle="tab" data-bs-target="#pricingTabContent" role="tab" aria-controls="pricingTabContent" aria-selected="true">
+									{" "}
+									<span className="me-sm-2 fs-4 nav-icons" data-feather="tag"></span>
+									<span className="d-none d-sm-inline">회사 정보</span>
+								</a>
+								<a className="nav-link border-end border-end-sm-0 border-bottom-sm border-300 text-center text-sm-start cursor-pointer outline-none d-sm-flex align-items-sm-center" id="restockTab" data-bs-toggle="tab" data-bs-target="#restockTabContent" role="tab" aria-controls="restockTabContent" aria-selected="false">
+									{" "}
+									<span className="me-sm-2 fs-4 nav-icons" data-feather="package"></span>
+									<span className="d-none d-sm-inline">부품정보</span>
+								</a>
+							</div>
+						</div>
+						<div className="col-sm-10">
+							<div className="tab-content py-3 ps-4 h-100">
+								<div className="tab-pane fade show active" id="pricingTabContent" role="tabpanel">
+									<div className="row g-3 mb-2">
+										<div className="col-12">
+											<h6 className="mb-2 text-1000">회사 이름</h6>
+											<input className="form-control" type="text" placeholder="회사이름" />
+										</div>
+										<div className="col-12">
+											<h6 className="mb-2 text-1000">대표자명</h6>
+											<input className="form-control" type="text" placeholder="대표자명" />
+										</div>
+									</div>
+									<div className="row g-3 mb-4">
+										<div className="col-12">
+											<h6 className="mb-2 text-1000">분류</h6>
+											<input className="form-control" type="text" placeholder="분류" />
+										</div>
+									</div>
+								</div>
+
+								<div className="tab-pane fade h-100" id="restockTabContent" role="tabpanel" aria-labelledby="restockTab">
+									<div className="row g-3 mb-2">
+										<div className="col-6">
+											<h6 className="mb-2 text-1000">
+												부품이름<span className="fs--1">(A~D)</span>
+											</h6>
+                                            <input className="form-control" type="text" placeholder="대표자명" />
+
+										</div>
+										<div className="col-6">
+											<h6 className="mb-2 text-1000">단위</h6>
+                                            <input className="form-control" type="text" placeholder="대표자명" />
+										</div>
+									</div>
+									<div className="row g-3 mb-4">
+										<div className="col-6">
+											<h6 className="mb-2 text-1000">
+												세부정보<span className="fs--1">(억원)</span>
+											</h6>
+											<input className="form-control" type="text" placeholder="영업이익" />
+										</div>
+									</div>
+								</div>
+								
+								<div className="tab-pane fade" id="productsTabContent" role="tabpanel" aria-labelledby="productsTab"></div>
+								<div className="tab-pane fade" id="attributesTabContent" role="tabpanel" aria-labelledby="attributesTab"></div>
+								
+							</div>
+						</div>
+					</div>
                         </div>
                     </Card>
                 </div>

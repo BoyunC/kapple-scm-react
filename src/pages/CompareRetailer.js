@@ -6,7 +6,7 @@ import { useState,useEffect } from "react";
 const CompareRetailer = () => {
 	const [searchContents,setSearchContents] = useState('');
 	const [checked,setChecked] =useState('')
-	const [supplNo,setSupplNo] = useState('');
+	const [comNo,setComNo] = useState('');
 	const [contract,setContract] =useState({});
 	useEffect(()=>{
 	},[searchContents]);
@@ -15,10 +15,10 @@ const CompareRetailer = () => {
 			<SearchBar title={"판매 예측"} setSrch={setSearchContents}/>
 			<div className="row">
 				<div className="col-lg">
-					<CompanyChart classification={"상품"} retailer={true} item={searchContents} setChecked={setChecked} setSupplNo={setSupplNo}/>
+					<CompanyChart classification={"상품"} retailer={true} item={searchContents} setChecked={setChecked} setComNo={setComNo}/>
 				</div>
 				<div className="col-lg">
-					<ComparsionChart retailer={true} item={searchContents} supplNo={supplNo} checked={checked}/>
+					<ComparsionChart retailer={true} item={searchContents} comNo={comNo} checked={checked}/>
 				</div>
 			</div>
 		</div>
