@@ -79,7 +79,7 @@ const SupplierDetail = () => {
 								<CoDetail supplierData={supplierData} updateSupplierData={updateSupplierData} />
 
 								{/* 오른쪽 카드 */}
-								<SuggestList suppl_no={supplierData.suppl_no} proposals={proposals} />
+								<SuggestList suppl_no={supplierData.suppl_no} proposals={proposals} handleSupplierClick={handleSupplierClick} />
 							</>
 						) : (
 							<div style={{ width: "79%" }}>

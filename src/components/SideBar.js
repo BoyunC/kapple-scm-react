@@ -166,9 +166,9 @@ const SideBar = () => {
 											<span className="fas fa-caret-right"></span>
 										</div>
 										<span className="nav-link-icon ms-1">
-											<i className="fa-solid fa-chart-line"></i>
+											<i class="fa-solid fa-pen-to-square"></i>
 										</span>
-										<span className="nav-link-text">계약</span>
+										<span className="nav-link-text">계약(Contract)</span>
 									</div>
 								</a>
 								<div className="parent-wrapper label-1">

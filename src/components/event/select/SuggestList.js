@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DefectiveRate from "../compare/DefectiveRate";
 import { useHistory } from "react-router";
 
-const SuggestList = ({ suppl_no, proposals }) => {
+const SuggestList = ({ suppl_no, proposals, handleSupplierClick }) => {
 	const [selectedCompoNo, setSelectedCompoNo] = useState(null);
 	const history = useHistory();
 
@@ -13,6 +13,16 @@ const SuggestList = ({ suppl_no, proposals }) => {
 	const handleAddProposal = () => {
 		console.log(suppl_no);
 		const newPath = `/addSupplier/${suppl_no}`;
+		history.push(newPath);
+	};
+
+	const handleMoveCompare = (compo_name, compo_no) => {
+		const newPath = `/compareSupplier/${compo_name}/${compo_no}`;
+		history.push(newPath);
+	};
+
+	const handleMoveContract = (proposal_no) => {
+		const newPath = `/contract/${proposal_no}`;
 		history.push(newPath);
 	};
 
@@ -30,6 +40,10 @@ const SuggestList = ({ suppl_no, proposals }) => {
 
 		return acc;
 	}, {});
+
+	useEffect(() => {
+		handleSupplierClick("");
+	}, [handleSupplierClick]);
 
 	const proposalRows1 = Object.values(filteredProposals).map((filteredProposal) => {
 		const { proposal } = filteredProposal;
@@ -182,6 +196,47 @@ const SuggestList = ({ suppl_no, proposals }) => {
 								</thead>
 								<tbody className="list" id="lead-details-table-body">
 									{proposalRows1}
+
+									<tr>
+										<td className="dealName align-middle text-center white-space-nowrap py-2 ps-0">
+											<a className="fw-semi-bold" href="#!" onClick={() => handleCompoClick("")}>
+												스피커
+											</a>
+										</td>
+										<td className="amount align-middle white-space-nowrap text-center fw-bold text-700 py-2 text-end pe-6">47,000원</td>
+										<td className="amount align-middle white-space-nowrap text-center fw-bold text-700 py-2 text-end pe-6">2,500</td>
+										<td className="probability align-middle white-space-nowrap">
+											<DefectiveRate defective={0.02} />
+										</td>
+										<td className="type align-middle fw-semi-bold py-2 text-center">
+											<span className="badge badge-phoenix fs--2 badge-phoenix-info">B</span>
+										</td>
+										<td className="date align-middle text-700 text-center py-2">10일</td>
+										<td className="date align-middle text-700 text-center py-2">2023.08.03</td>
+										<td className="type align-middle fw-semi-bold py-2 text-center">
+											<span className="badge badge-phoenix fs--2 badge-phoenix-danger">미계약</span>
+										</td>
+										<td className="align-middle text-end white-space-nowrap pe-0 action py-2">
+											<div className="font-sans-serif btn-reveal-trigger position-static">
+												<button className="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent">
+													<span className="fas fa-ellipsis-h fs--2"></span>
+												</button>
+												<div className="dropdown-menu dropdown-menu-end py-2">
+													<a className="dropdown-item" href="#!" onClick={() => handleCompoClick("")}>
+														이전 제안 보기
+													</a>
+													<a className="dropdown-item" href="#!" onClick={() => handleMoveCompare("스피커", "CPNT10003")}>
+														제품 비교
+													</a>
+
+													<div className="dropdown-divider"></div>
+													<a className="dropdown-item text-danger" href="#!" onClick={() => handleMoveContract("PROP912")}>
+														계약
+													</a>
+												</div>
+											</div>
+										</td>
+									</tr>
 								</tbody>
 							</table>
 						</div>
