@@ -39,6 +39,10 @@ const routes = [
 		component: CompareSupplier,
 	},
 	{
+		path: "/compareSupplier/:compo_name/:compo_no",
+		component: CompareSupplier,
+	},
+	{
 		path: "/compareRetailer",
 		component: CompareRetailer,
 	},
