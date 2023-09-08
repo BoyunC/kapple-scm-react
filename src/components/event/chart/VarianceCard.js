@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactECharts from "echarts-for-react";
-import Graph from "./Graph";
+import { useSelector } from "react-redux";
 
-const VarianceCard = () => {
+const VarianceCard = ({item}) => {
+
+	const [ option , setOption] = useState(item);
+	useEffect(() => {
+		console.log("option:", option);
+	}, [option]);
 
     return (
         <div className="card" style={{ height: "auto" }}>
@@ -10,9 +15,9 @@ const VarianceCard = () => {
                 <div className="row flex-between-center mb-4 g-3">
                     <div className="col-auto">
                         <h4 id="comparisonTitle">
-                            {charts[0].title 
-                                ? <ReactECharts option={charts[0].title} /> 
-                                : <p>Comparison Title Loading...</p>}</h4>
+                            {option 
+                                ? option.title.subtext
+                                : "변화 비교 분석"}</h4>
                         <p className="text-700 lh-sm mb-0" 
                             style={{fontSize:'smaller'}}
                             id="comparisonComment">with the previous period</p>
@@ -39,9 +44,8 @@ const VarianceCard = () => {
                         </div>
                     </div>
                 </div>
-                {/* {charts[0].option  */}
-                {charts[0].option
-                    ? <ReactECharts option={charts[0].option} /> 
+                {option
+                    ? <ReactECharts option={option} /> 
                     : <p>Comparison ECharts Loading...</p>}
             </div>
             {/* <div id="comparisonChart" 
