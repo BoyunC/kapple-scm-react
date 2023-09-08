@@ -174,13 +174,7 @@ const SideBar = () => {
 								<div className="parent-wrapper label-1">
 									<ul className="nav collapse parent" data-bs-parent="#navbarVerticalCollapse" id="nv-contract">
 										<li className="collapsed-nav-item-title d-none">계약</li>
-										<li className="nav-item">
-											<Link className="nav-link" to="/contract" data-bs-toggle="" aria-expanded="false">
-												<div className="d-flex align-items-center">
-													<span className="nav-link-text">계약</span>
-												</div>
-											</Link>
-										</li>
+
 										<li className="nav-item">
 											<Link className="nav-link" to="/contracts" data-bs-toggle="" aria-expanded="false">
 												<div className="d-flex align-items-center">

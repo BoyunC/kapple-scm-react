@@ -51,7 +51,7 @@ const Graph = ({  retailer, names, proposals, prices, quantitys, defective_rates
 				},
 				grid: {
 				  right: '23%',
-				  left:'25%'
+				  left:'27%'
 				},
 				toolbox: {
 				  feature: {
