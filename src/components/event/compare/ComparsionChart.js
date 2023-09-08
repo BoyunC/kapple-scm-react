@@ -6,25 +6,25 @@ import DefectiveRate from "./DefectiveRate";
 import Table from "./Table";
 
 
-const ComparsionChart = ({ retailer,item,supplNo,checked,setModalIsOpen,setContract}) => {
+const ComparsionChart = ({ retailer,item,comNo,checked,setModalIsOpen,setContract}) => {
 	const suplHeaders = [
 		{ accessor: "proposal_no", Header: "no" },
 		{ accessor: "supplier.suppl_name", Header: "회사이름" },
 		{ accessor: "component.compo_name", Header: "부품이름" },
-		{ accessor: "price", Header: "가격" },
-		{ accessor: "quantity", Header: "수량" },
-		{ accessor: "defective_rate", Header: "불량률", Cell: ({ cell: { value } }) => <DefectiveRate defective={value} /> },
+		{ accessor: "price", Header: "가격(원)" },
+		{ accessor: "quantity", Header: "수량(개)" },
+		{ accessor: "defective_rate", Header: "불량률(%)", Cell: ({ cell: { value } }) => <DefectiveRate defective={value} /> },
 		{ accessor: "quality_grade", Header: "품질등급", Cell: ({ cell: { value } }) => <Star quality={value} /> },
-		{ accessor: "prod_period", Header: "생산기간" },
+		{ accessor: "prod_period", Header: "생산기간(일)" },
 	];
 	const reHeaders = [
-		{ accessor: "no", Header: "no" },
-		{ accessor: "name", Header: "회사이름" },
-		{ accessor: "productName", Header: "상품이름" },
-		{ accessor: "predictAmount", Header: "예측판매수량" },
-		{ accessor: "purchasingGrade", Header: "구매자등급" },
-		{ accessor: "price", Header: "가격" },
-		{ accessor: "transportGrade", Header: "운임등급" },
+		{ accessor: "sale_predict_no", Header: "no" },
+		{ accessor: "retailer.retail_name", Header: "회사이름" },
+		{ accessor: "product.prod_name", Header: "상품이름" },
+		{ accessor: "sales_amount", Header: "예측판매수량(개)" },
+		{ accessor: "purchasing_grade", Header: "구매자등급" },
+		{ accessor: "price", Header: "가격(만원)" },
+		{ accessor: "transport_grade", Header: "운임등급" },
 	];
 	const columns = useMemo(() => (retailer ? reHeaders : suplHeaders), []);
 	const [datas, setDatas] = useState([]);
@@ -41,7 +41,7 @@ const ComparsionChart = ({ retailer,item,supplNo,checked,setModalIsOpen,setContr
 
 	const getContract = () => {
 		
-		axios.get(`http://localhost:8081/proposal/${item}/${supplNo}`).then((res) => {
+		axios.get(`http://localhost:8081/proposal/${item}/${comNo}`).then((res) => {
 			console.log(res.data);
 			let arr=[...datas];
 			let name=[...names];
@@ -92,20 +92,39 @@ const ComparsionChart = ({ retailer,item,supplNo,checked,setModalIsOpen,setContr
 		});
 	};
 	const getPredict = () => {
-		// axios.get("http://localhost:3010/predicts").then((res) => {
-		// 	setDatas(res.data);
-		// });
+		
+		axios.get(`http://localhost:8081/predict/${item}/${comNo}`).then((res) => {
+			let arr=[...datas];
+			let name=[...names];
+			let price=[...prices];
+			let quantity=[...quantitys];
+			if(checked){
+				arr.push(res.data);
+				name.push(res.data.retailer.retail_name);
+				price.push(res.data.price);
+				quantity.push(res.data.sales_amount);
+			}else{
+				let index=arr.findIndex(e=>e.sale_predict_no===res.data.sale_predict_no);
+				arr.splice(index,1);
+				price.splice(index,1);
+				quantity.splice(index,1);
+			}
+			setDatas(arr);
+			setNames(name);
+			setPrices(price);
+			setQuantitys(quantity);
+		});
 	};
 
 	useEffect(() => {
-		if(item!==''&&supplNo!==''){
+		if(item!==''&&comNo!==''){
 			if (retailer) {
 				getPredict();
 			} else {
 				getContract();
 			}
 		}
-	}, [supplNo,checked]);
+	}, [comNo,checked]);
 
 	return (
 
@@ -122,7 +141,7 @@ const ComparsionChart = ({ retailer,item,supplNo,checked,setModalIsOpen,setContr
 
 							<div id="tableComparsionS">
 								<div className="table-responsive">
-									<Table columns={columns} data={data} flag={true} setModalIsOpen={setModalIsOpen} setContract={setContract}/>
+									<Table columns={columns} data={data} flag={true} setModalIsOpen={setModalIsOpen} setContract={setContract} retailer={retailer}/>
 								</div>
 							</div>
 													

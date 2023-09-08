@@ -160,7 +160,7 @@ const SideBar = () => {
 								</div>
 							</div>
 							<div className="nav-item-wrapper">
-								<a className="nav-link dropdown-indicator label-1" href="#nv-statistics" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="nv-project-management">
+								<a className="nav-link dropdown-indicator label-1" href="#nv-contract" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="nv-project-management">
 									<div className="d-flex align-items-center">
 										<div className="dropdown-indicator-icon">
 											<span className="fas fa-caret-right"></span>
@@ -172,7 +172,7 @@ const SideBar = () => {
 									</div>
 								</a>
 								<div className="parent-wrapper label-1">
-									<ul className="nav collapse parent" data-bs-parent="#navbarVerticalCollapse" id="nv-statistics">
+									<ul className="nav collapse parent" data-bs-parent="#navbarVerticalCollapse" id="nv-contract">
 										<li className="collapsed-nav-item-title d-none">계약</li>
 										<li className="nav-item">
 											<Link className="nav-link" to="/contract" data-bs-toggle="" aria-expanded="false">

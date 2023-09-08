@@ -3,7 +3,7 @@ import { useState, useEffect, useMemo } from "react";
 import Table from "./Table";
 import CompanyDropdown from "./CompanyDropdown";
 
-const CompanyChart = ({ retailer , check, item, setChecked,setSupplNo}) => {
+const CompanyChart = ({ retailer , check, item, setChecked,setComNo}) => {
 	const [companys, setCompany] = useState([]);
 	const headers = [
 		{ accessor: "suppl_no", Header: "no" },
@@ -78,7 +78,7 @@ const CompanyChart = ({ retailer , check, item, setChecked,setSupplNo}) => {
 								<div className="card-body py-0 scrollbar to-do-list-body min-vh-xxl-50 h-xl-auto">
 									<div id="supplierTableContainer" dat-list='{"valueNames":["suppl_no","suppl_name","ceo_name","category"],"page":10,"pagination":true}'>
 										<div className="table-responsive mx-n1 px-1">
-													<Table columns={columns} data={data} flag={false} check={check} item={item} setChecked={setChecked} setSupplNo={setSupplNo}/>
+													<Table columns={columns} data={data} flag={false} check={check} item={item} setChecked={setChecked} setComNo={setComNo}/>
 										</div>
 										<div className="d-flex flex-between-center pt-3 mb-3">
 											<div className="pagination d-none"></div>
