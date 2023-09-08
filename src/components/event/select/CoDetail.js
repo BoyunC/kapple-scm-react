@@ -100,6 +100,7 @@ const CoDetail = ({ supplierData, updateSupplierData }) => {
 									<h5 className="text-1000 mb-0">주소</h5>
 								</div>
 								<p className="mb-0 text-800">{supplierData.address}</p>
+								<img className="border border-3 ms-2 mt-2" height="250px" src={`/resources/assets/img/map/samsung.png`} alt="" />
 							</div>
 
 							{/* <GoogleMapReact bootstrapURLKeys={{ key: "" }} defaultCenter={this.props.center} defaultZoom={this.props.zoom} yesIWantToUseGoogleMapApiInternals onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>

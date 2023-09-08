@@ -6,12 +6,40 @@ import DetailCo from "../components/event/register/DetailCo";
 import DetailItem from "../components/event/register/DetailItem";
 import SearchBox from "../components/event/register/SearchBox";
 import DraftOffcanvas from "../components/event/register/DraftOffcanvas";
+import { Modal } from "react-bootstrap";
 
 export const ComponentDataContext = createContext();
 
 const AddSupplier = () => {
 	const { sppl_no } = useParams();
 	const [selectedComponentName, setSelectedComponentName] = useState("");
+
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	const openModal = () => {
+		setIsModalOpen(true);
+	};
+
+	const closeModal = () => {
+		setIsModalOpen(false);
+	};
+
+	const handleModalConfirm = () => {
+		// axios
+		// 	.post("/suppliers", {
+		// 		componentData,
+		// 	})
+		// 	.then((response) => {
+		// 		console.log("공급사가 등록되었습니다.");
+		// 		closeModal();
+		// 	})
+		// 	.catch((error) => {
+		// 		console.error("등록 중 오류가 발생했습니다.", error);
+		// 	});
+
+		closeModal();
+		alert("공급사 등록이 완료되었습니다");
+	};
 
 	const [componentData, setComponentData] = useState({
 		compo_no: "",
@@ -206,6 +234,7 @@ const AddSupplier = () => {
 			.post(serverUrl, dataToSend)
 			.then((response) => {
 				console.log("Data sent successfully:", response.data);
+				alert("임시저장이 완료되었습니다.");
 			})
 			.catch((error) => {
 				console.error("Error sending data:", error);
@@ -241,7 +270,7 @@ const AddSupplier = () => {
 								<button className="btn btn-outline-danger  me-2 mb-1" type="button" onClick={handleReset}>
 									초기화
 								</button>
-								<button className="btn btn-primary  me-1 mb-1" type="button">
+								<button className="btn btn-primary  me-1 mb-1" type="button" onClick={openModal}>
 									공급사 등록
 								</button>
 							</div>
@@ -263,6 +292,27 @@ const AddSupplier = () => {
 								<DetailCo componentData={componentData} updateComponentData={updateComponentData} />
 							</div>
 						</div>
+
+						{/* 이 부분이 모달 창입니다 */}
+						{isModalOpen && (
+							<Modal show={openModal} onHide={handleClose} backdrop="static" keyboard={false} centered>
+								<Modal.Header closeButton>
+									<Modal.Title>공급사 등록</Modal.Title>
+								</Modal.Header>
+								<Modal.Body>
+									<p>공급사를 등록하시겠습니까?</p>
+								</Modal.Body>
+								<Modal.Footer>
+									<button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModal}>
+										취소
+									</button>
+									<button type="button" className="btn btn-primary" onClick={handleModalConfirm}>
+										확인
+									</button>
+								</Modal.Footer>
+							</Modal>
+						)}
+						{/* 모달 창 끝 */}
 
 						{/* 토스트*/}
 						<div className="position-fixed " style={{ zIndex: "5" }}>
