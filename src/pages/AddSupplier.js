@@ -1,5 +1,6 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 import DetailCo from "../components/event/register/DetailCo";
 import DetailItem from "../components/event/register/DetailItem";
@@ -9,6 +10,7 @@ import DraftOffcanvas from "../components/event/register/DraftOffcanvas";
 export const ComponentDataContext = createContext();
 
 const AddSupplier = () => {
+	const { sppl_no } = useParams();
 	const [selectedComponentName, setSelectedComponentName] = useState("");
 
 	const [componentData, setComponentData] = useState({
@@ -54,6 +56,33 @@ const AddSupplier = () => {
 	});
 
 	const [uploadedFiles, setUploadedFiles] = useState([]);
+
+	useEffect(() => {
+		console.log(componentData);
+	}, [componentData]);
+
+	useEffect(() => {
+		// 페이지가 로드될 때 데이터를 가져올 때 사용합니다.
+		const fetchData = async () => {
+			try {
+				const response = await axios.get(`http://localhost:8081/suppliers2/${sppl_no}`);
+				const supplierData = response.data;
+				console.log(response.data);
+
+				// 가져온 데이터를 componentData에 설정합니다.
+				setComponentData((prevData) => ({
+					...prevData,
+					...supplierData,
+					// 나머지 필드들도 가져와서 설정해주세요.
+				}));
+			} catch (error) {
+				console.error("Error fetching supplier data:", error);
+			}
+		};
+
+		// 데이터를 가져오는 함수를 호출합니다.
+		fetchData();
+	}, [sppl_no]); // sppl_no가 변경될 때마다 useEffect가 실행됩니다.
 
 	const handleComponentClick = (componentName, compoId) => {
 		setSelectedComponentName(componentName);

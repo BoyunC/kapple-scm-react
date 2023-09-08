@@ -10,52 +10,56 @@ import ContractPage from "./pages/ContractPage";
 import ShowContract from "./pages/ShowContract";
 
 const routes = [
-    {
-        path: "/",
-        component: Home,
-    },
-    {
-        path: "/addSupplier",
-        component: AddSupplier,
-    },
-    {
-        path: "/addRetailer",
-        component: AddRetailer,
-    },
-    {
-        path: "/supplierDetail",
-        component: SupplierDetail,
-    },
-    {
-        path: "/retailerDetail",
-        component: RetailerDetail,
-    },
-    {
-        path: "/compareSupplier",
-        component: CompareSupplier,
-    },
-    {
-        path: "/compareRetailer",
-        component: CompareRetailer,
-    },
-    {
-        path: "/showChart",
-        component: ShowChart,
-    },
-    {
-        path: `/contract`,
-        component: ContractPage,
-    },
+	{
+		path: "/",
+		component: Home,
+	},
+	{
+		path: "/addSupplier",
+		component: AddSupplier,
+	},
+	{
+		path: "/addSupplier/:sppl_no",
+		component: AddSupplier,
+	},
+	{
+		path: "/addRetailer",
+		component: AddRetailer,
+	},
+	{
+		path: "/supplierDetail",
+		component: SupplierDetail,
+	},
+	{
+		path: "/retailerDetail",
+		component: RetailerDetail,
+	},
+	{
+		path: "/compareSupplier",
+		component: CompareSupplier,
+	},
+	{
+		path: "/compareRetailer",
+		component: CompareRetailer,
+	},
+	{
+		path: "/showChart",
+		component: ShowChart,
+	},
+	{
+		path: `/contract`,
+		component: ContractPage,
+	},
 
-    {
-        path: `/contracts`,
-        component: ShowContract,
-    },
+	{
+		path: `/contracts`,
+		component: ShowContract,
+	},
 
-    {
-        path: `/contract/:proposal_no`,
-        component: ContractPage,
-    },
+	{
+		path: `/contract/:proposal_no`,
+		component: ContractPage,
+	},
 ];
 
 export default routes;

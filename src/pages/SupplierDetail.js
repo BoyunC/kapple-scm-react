@@ -1,7 +1,9 @@
 import { useState } from "react";
-import CoDeatail from "../components/event/select/CoDetail";
 import SearchCo from "../components/event/select/SearchCo";
 import SuggestList from "../components/event/select/SuggestList";
+import CoDetail from "../components/event/select/CoDetail";
+import axios from "axios";
+import { async } from "q";
 
 const SupplierDetail = () => {
 	const [supplierData, setSupplierData] = useState({
@@ -30,22 +32,37 @@ const SupplierDetail = () => {
 		market_cap: "",
 		website: "",
 
-		logo_name: "",
-		uuid: "",
-		path: "",
+		responseLogo: {},
 	});
 
+	const [proposals, setProposals] = useState([]);
+
 	const updateSupplierData = (newData) => {
-		setSupplierData({ ...supplierData, ...newData });
-		console.log(supplierData);
+		setSupplierData((prevData) => ({
+			...prevData,
+			...newData,
+		}));
 	};
 
-	const handleComponentClick = (supplierData) => {
-		// setSupplierData((prevData) => ({
-		// 	...prevData,
-		// 	compo_no: compoId,
-		// 	compo_name: componentName,
-		// }));
+	const handleSupplierClick = (supplier) => {
+		//setSelectedComponentName(supplier.);
+
+		setSupplierData((prevData) => ({
+			...prevData,
+			...supplier,
+		}));
+
+		console.log(supplierData.suppl_no);
+
+		axios
+			.get(`http://localhost:8081/proposal2/${supplierData.suppl_no}`)
+			.then((response) => {
+				setProposals(response.data);
+				console.log(response.data);
+			})
+			.catch((error) => {
+				console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
+			});
 	};
 
 	return (
@@ -54,13 +71,28 @@ const SupplierDetail = () => {
 				<div className="mx-lg-n4 mt-1">
 					<div className="row g-3 ms-3 mx-3">
 						{/* 왼쪽카드 */}
-						<SearchCo supplierData={supplierData} setSupplierData={setSupplierData} />
+						<SearchCo supplierData={supplierData} handleSupplierClick={handleSupplierClick} />
 
-						{/* 가운데 카드 */}
-						<CoDeatail />
+						{supplierData.suppl_no !== "" ? (
+							<>
+								{/* 가운데 카드 */}
+								<CoDetail supplierData={supplierData} updateSupplierData={updateSupplierData} />
 
-						{/* 오른쪽 카드 */}
-						<SuggestList />
+								{/* 오른쪽 카드 */}
+								<SuggestList suppl_no={supplierData.suppl_no} proposals={proposals} />
+							</>
+						) : (
+							<div style={{ width: "79%" }}>
+								<div className="card mb-2" style={{ height: "830px" }}>
+									<div className="card-body text-center">
+										<img height={"50%"} src={"/resources/assets/img/spot-illustrations/22_2.png"} alt="" style={{ marginTop: "100px" }} />
+										<div className="w-100 mt-2 row align-items-center g-3 text-center text-xxl-start">
+											<p className="text-center">왼쪽의 검색 기능을 이용해 조회하고자 하는 공급사를 선택해주세요.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						)}
 					</div>
 
 					{/* 토스트*/}

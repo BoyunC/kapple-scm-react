@@ -1,33 +1,43 @@
 import GoogleMapReact from "google-map-react";
 
-const CoDeatail = () => {
-	// const AnyReactComponent = ({ text }) => <div>{text}</div>;
-	// const handleApiLoaded = (map, maps) => {
-	// 	// use map and maps objects
-	// };
+const CoDetail = ({ supplierData, updateSupplierData }) => {
+	function getColorBySupplLevel(supplLevel) {
+		switch (supplLevel) {
+			case "A":
+				return "badge-phoenix-primary";
+			case "B":
+				return "badge-phoenix-success";
+			case "C":
+				return "badge-phoenix-warning";
+			case "D":
+				return "badge-phoenix-danger";
+			default:
+				return "badge-phoenix-secondary";
+		}
+	}
 
 	return (
-		<div style={{ width: "29%", height: "760px" }}>
-			<div className="card mb-2">
+		<div style={{ width: "29%", maxHeight: "800px", height: "800px" }}>
+			<div className="card mb-2" style={{ maxHeight: "150px" }}>
 				<div className="card-body">
 					<div className="row align-items-center g-3 text-center text-xxl-start">
 						<div className="col-auto col-xxl-auto">
 							<div className="avatar avatar-3xl">
-								<img className="rounded-circle" src="resources/assets/img/brand2/dell.png" alt="" />
+								<img className="rounded-circle border border-3" width="75px" height="75px" src={`/savedFile/logo/supplier/${supplierData.responseLogo.logo_name || "default.png"}`} alt="" />
 							</div>
 						</div>
 						<div className="col-12 col-sm-auto flex-1">
-							<h3 className="fw-bolder mb-2">공급사명</h3>
-							<p className="mb-0">기업설명</p>
+							<h3 className="fw-bolder mb-2">{supplierData.suppl_name}</h3>
+							<p className="mb-0 fs--1">{supplierData.detail}</p>
 							<a className="fw-bold" href="#!">
-								웹사이트
+								{supplierData.website}
 							</a>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<div className="card mb-3" style={{ height: "680px" }}>
+			<div className="card mb-3" style={{ maxHeight: "700px", height: "700px" }}>
 				<div className="card-body">
 					<div className="border-bottom d-flex justify-content-between align-items-center ">
 						<div>
@@ -58,19 +68,19 @@ const CoDeatail = () => {
 					</ul>
 					<div className="tab-content mt-3" id="myTabContent">
 						<div className="tab-pane fade show active" id="tab-home" role="tabpanel" aria-labelledby="home-tab">
-							<div className="mb-4 mt-3">
+							<div className="mb-4 mt-5">
 								<div className="d-flex align-items-center mb-1">
 									<span className="me-2 uil uil-phone"> </span>
 									<h5 className="text-1000 mb-0">전화번호</h5>
 								</div>
-								<a href="tel:+1234567890">+1234567890 </a>
+								<a href="tel:+1234567890">{supplierData.phone_number}</a>
 							</div>
 							<div className="mb-4">
 								<div className="d-flex align-items-center mb-1">
 									<span className="me-2 uil uil-globe"></span>
 									<h5 className="text-1000 mb-0">사업자번호</h5>
 								</div>
-								<a href="#!">www.bb.ru.com </a>
+								<p className="mb-0 text-800">{supplierData.business_no}</p>
 							</div>
 							<div className="mb-4">
 								<div className="d-flex align-items-center mb-1">
@@ -78,18 +88,18 @@ const CoDeatail = () => {
 									<h5 className="text-1000 mb-0">기업 구분</h5>
 								</div>
 								<div className="mb-2">
-									<span className="badge badge-phoenix badge-phoenix-primary p-2 me-2">업태</span>
-									<span className="mb-0 text-800 me-5">Large</span>
-									<span className="badge badge-phoenix badge-phoenix-success p-2 me-2">종목</span>
-									<span className="mb-0 text-800">Large </span>
+									<span className="badge badge-phoenix badge-phoenix-primary p-1 me-2">업태</span>
+									<span className="mb-0 text-800 me-5">{supplierData.business_type}</span>
+									<span className="badge badge-phoenix badge-phoenix-success p-1 me-2">종목</span>
+									<span className="mb-0 text-800">{supplierData.business_item} </span>
 								</div>
 							</div>
 							<div className="mb-4">
 								<div className="d-flex align-items-center mb-1">
-									<span className="me-2 uil uil-postcard"></span>
+									<span className="me-2 uil uil-map-marker-alt"></span>
 									<h5 className="text-1000 mb-0">주소</h5>
 								</div>
-								<p className="mb-0 text-800">126</p>
+								<p className="mb-0 text-800">{supplierData.address}</p>
 							</div>
 
 							{/* <GoogleMapReact bootstrapURLKeys={{ key: "" }} defaultCenter={this.props.center} defaultZoom={this.props.zoom} yesIWantToUseGoogleMapApiInternals onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
@@ -125,8 +135,113 @@ const CoDeatail = () => {
 								<span className="badge badge-phoenix badge-phoenix-primary">New Lead</span>
 							</div> */}
 						</div>
-						<div className="tab-pane fade" id="tab-profile" role="tabpanel" aria-labelledby="profile-tab"></div>
-						<div className="tab-pane fade" id="tab-contact" role="tabpanel" aria-labelledby="contact-tab"></div>
+						<div className="tab-pane fade" id="tab-profile" role="tabpanel" aria-labelledby="profile-tab">
+							<div className="mb-4 mt-5">
+								<div className="d-flex align-items-center mb-1">
+									<span className="me-2 uil uil-document-layout-left"> </span>
+									<h5 className="text-1000 mb-0">기업 설명</h5>
+								</div>
+								<p>{supplierData.detail}</p>
+							</div>
+							<div className="mb-4 mt-3">
+								<div className="d-flex align-items-center mb-1">
+									<span className="me-2 uil uil-check-circle"> </span>
+									<h5 className="text-1000 mb-0">대표자</h5>
+								</div>
+								<p>{supplierData.representative}</p>
+							</div>
+							<div className="mb-4">
+								<div className="d-flex align-items-center mb-1">
+									<span className="me-2 uil uil-building"></span>
+									<h5 className="text-1000 mb-0">기업유형</h5>
+								</div>
+								<p className="mb-0 text-800">{supplierData.company_type}</p>
+							</div>
+							<div className="mb-4">
+								<div className="d-flex align-items-center mb-1">
+									<span className="me-2 uil uil-lightbulb"></span>
+									<h5 className="text-1000 mb-0">직원수</h5>
+								</div>
+								<p className="mb-0 text-800">{supplierData.employee_quantity}명</p>
+							</div>
+							<div className="mb-4">
+								<div className="d-flex align-items-center mb-1">
+									<span className="me-2 uil uil-calender"></span>
+									<h5 className="text-1000 mb-0">설립일</h5>
+								</div>
+								{new Intl.DateTimeFormat("ko-KR", {
+									year: "numeric",
+									month: "2-digit",
+									day: "2-digit",
+								}).format(new Date(supplierData.establishment_date))}
+							</div>
+							<div className="mb-4">
+								<div className="d-flex align-items-center mb-1">
+									<span className="me-2 uil uil-calendar-alt"></span>
+									<h5 className="text-1000 mb-0">공급사 등록일</h5>
+								</div>
+								{new Intl.DateTimeFormat("ko-KR", {
+									year: "numeric",
+									month: "2-digit",
+									day: "2-digit",
+								}).format(new Date(supplierData.sp_created_at))}
+							</div>
+							<div className="mb-4">
+								<div className="d-flex align-items-center mb-1">
+									<span className="me-2 uil uil-calendar-alt"></span>
+									<h5 className="text-1000 mb-0">공급사 최종 수정일</h5>
+								</div>
+								{new Intl.DateTimeFormat("ko-KR", {
+									year: "numeric",
+									month: "2-digit",
+									day: "2-digit",
+								}).format(new Date(supplierData.sp_updated_at))}
+							</div>
+						</div>
+						<div className="tab-pane fade" id="tab-contact" role="tabpanel" aria-labelledby="contact-tab">
+							<div className="mb-4 mt-5">
+								<div className="d-flex align-items-center mb-1">
+									<span className="me-2 uil uil-gold"> </span>
+									<h5 className="text-1000 mb-0">기업 금융 평가</h5>
+								</div>
+								<span className={`badge badge-phoenix ${getColorBySupplLevel(supplierData.suppl_level)} px-4 me-2`}>{supplierData.suppl_level}</span>
+							</div>
+							<div className="mb-4">
+								<div className="d-flex align-items-center mb-1">
+									<span className="me-2 uil uil-money-stack"></span>
+									<h5 className="text-1000 mb-0">매출액</h5>
+								</div>
+								<p className="mb-0 text-800">{supplierData.market_cap.toLocaleString()}억원</p>
+							</div>
+							<div className="mb-4">
+								<div className="d-flex align-items-center mb-1">
+									<span className="me-2 uil uil-money-withdraw"></span>
+									<h5 className="text-1000 mb-0">영업이익</h5>
+								</div>
+								<p className="mb-0 text-800">
+									{supplierData.profit.toLocaleString()}억원 {supplierData.net_profit <= supplierData.market_cap * 0.1 ? <span className="badge badge-phoenix badge-phoenix-danger p-1 me-2">10% ↓</span> : <span className="badge badge-phoenix badge-phoenix-primary p-1 me-2">10% ↑</span>}
+								</p>
+							</div>
+							<div className="mb-4">
+								<div className="d-flex align-items-center mb-1">
+									<span className="me-2 uil uil-money-bill"></span>
+									<h5 className="text-1000 mb-0">당기순이익</h5>
+								</div>
+								<p className="mb-0 text-800">
+									{supplierData.net_profit.toLocaleString()}억원 {supplierData.net_profit <= supplierData.market_cap * 0.1 ? <span className="badge badge-phoenix badge-phoenix-danger p-1 me-2">10% ↓</span> : <span className="badge badge-phoenix badge-phoenix-primary p-1 me-2">10% ↑</span>}
+								</p>
+							</div>
+
+							<div className="mb-4">
+								<div className="d-flex align-items-center mb-1">
+									<span className="me-2 uil uil-percentage"></span>
+									<h5 className="text-1000 mb-0">부채비율</h5>
+								</div>
+								<p className="mb-0 text-800">
+									{supplierData.debt_ratio} {supplierData.debt_ratio >= 30 ? <span className="badge badge-phoenix badge-phoenix-danger p-1 me-2">위험</span> : <span className="badge badge-phoenix badge-phoenix-success p-1 me-2">안전</span>}
+								</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -134,4 +249,4 @@ const CoDeatail = () => {
 	);
 };
 
-export default CoDeatail;
+export default CoDetail;

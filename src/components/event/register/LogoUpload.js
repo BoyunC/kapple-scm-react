@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 const LogoUpload = ({ componentData, updateComponentData }) => {
 	const [selectedFile, setSelectedFile] = useState(null);
+	const [logoName, setLogoName] = useState("");
 
 	const handleFileInputChange = (event) => {
 		const file = event.target.files[0];
@@ -13,6 +14,13 @@ const LogoUpload = ({ componentData, updateComponentData }) => {
 
 		uploadLogo(file);
 	};
+
+	useEffect(() => {
+		if (componentData.responseLogo && componentData.responseLogo.logo_name !== "") {
+			// 로고 이름이 있으면 해당 로고를 가져옵니다.
+			setLogoName(componentData.responseLogo.logo_name);
+		}
+	}, [componentData.responseLogo]);
 
 	useEffect(() => {
 		if (componentData.has_logo === false) {
@@ -42,7 +50,9 @@ const LogoUpload = ({ componentData, updateComponentData }) => {
 	return (
 		<div className="thumbnail-container">
 			<label htmlFor="fileInput" className="thumbnail">
-				{selectedFile ? (
+				{componentData.responseLogo && componentData.responseLogo.logo_name ? (
+					<img className="rounded-circle border border-3" width="75px" height="75px" src={`/savedFile/logo/supplier/${componentData.responseLogo.logo_name}`} alt="" />
+				) : selectedFile ? (
 					<img src={URL.createObjectURL(selectedFile)} alt="Selected" className="rounded-circle border border-3 h-auto" style={{ width: "85px", height: "85px" }} />
 				) : (
 					<div className="placeholder rounded-circle border border-3 text-center" style={{ width: "85px", height: "85px", cursor: "pointer" }}>
