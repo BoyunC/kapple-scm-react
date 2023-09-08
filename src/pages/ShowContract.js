@@ -1,7 +1,9 @@
+import React from "react";
 import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
 import { Card } from "react-bootstrap";
 import { useTable } from "react-table";
+import { get } from "react-hook-form";
 
 const ShowContract = ()=>{
     const columnHeader=[
@@ -37,6 +39,29 @@ const ShowContract = ()=>{
     const columns = useMemo(()=>columnHeader,[]);
     const [datas,setDatas]=useState([]);
     const data=useMemo(()=>datas,[datas]);
+    const [pro_no,setPro_no]=useState('');
+    const [suppl_no,setSuppl_no]=useState('');
+    const [compo_no,setCompo_no]=useState('');
+    const [contract_date,setContract_date]=useState('');
+    const [proposal,setProposal]=useState({
+        proposal_no:'',
+        contract_date:'',
+        supplier:{
+            suppl_no:'',
+            suppl_name:'',
+            ceo_name:'',
+            phone:'',
+            category:'',
+        },
+        component:{
+            compo_no:'',
+            compo_name:'',
+            detail:'',
+            unit:''
+        },
+        price:'',
+        quantity:'',
+    })
 
     const allContracts=()=>{
         axios.get(`http://localhost:8081/contracts`).then((res)=>{
@@ -44,6 +69,27 @@ const ShowContract = ()=>{
             console.log(res.data);
         })
     }
+    const clickContract=(e)=>{
+        setSuppl_no(e.target.parentElement.children[1].innerHTML);
+        setCompo_no(e.target.parentElement.children[2].innerHTML);
+        setPro_no(e.target.parentElement.children[6].innerHTML);
+        setContract_date(e.target.parentElement.children[5].innerHTML)
+        //console.log(pro_no);
+        //getProposal();
+    }
+    const getProposal=()=>{
+        axios.get(`http://localhost:8081/contract/${pro_no}`).then((res)=>{
+            //setDatas(res.data);
+            console.log(res.data);
+            setProposal(res.data);
+        })
+    }
+
+    useEffect(()=>{
+        if(pro_no!==''){
+            getProposal();
+        }
+    },[pro_no])
     useEffect(()=>{
         allContracts();
     },[])
@@ -89,7 +135,10 @@ const ShowContract = ()=>{
                                             <tr {...row.getRowProps()}>
                                             {row.cells.map(cell => (
                                                 // getCellProps는 각 cell data를 호출해낸다
-                                                <td {...cell.getCellProps()} className="align-middle fw-semi-bold text-1000 mb-0">{cell.render('Cell')}</td>
+                                                <td {...cell.getCellProps()} className="align-middle fw-semi-bold text-1000 mb-0" 
+                                                onClick={(e)=>{
+                                                    clickContract(e);
+                                                }}>{cell.render('Cell')}</td>
                                             ))}
                                             </tr>
                                         );
@@ -112,35 +161,35 @@ const ShowContract = ()=>{
                     <div className="card-title mb-3">
                         <h4 className="text-1100">제안 정보</h4>
                     </div>
-                    <div className="col-12 d-flex justify-content-between">
+                    <div className="col-12 d-flex justify-content-between" >
 						<div className="w-50">
 							<h5 className="text-1000">제안 번호</h5>
-							<input className="form-control mb-xl-3" type="text"  />
+							<input className="form-control mb-xl-3" type="text" value={proposal.proposal_no} readOnly/>
 						</div>
 						<div className="w-50 ms-3">
 							<h5 className="text-1000">계약 일자</h5>
-							<input className="form-control mb-xl-3" type="text"  />
+							<input className="form-control mb-xl-3" type="text" value={contract_date} readOnly/>
 						</div>
 					</div>
 					<div className="col-12 d-flex justify-content-between">
 						<div className="w-50">
 							<h5 className="text-1000 ">회사번호</h5>
-							<input className="form-control mb-xl-3" type="text" />
+							<input className="form-control mb-xl-3" type="text" value={proposal.supplier.suppl_no} readOnly/>
 						</div>
 						<div className="w-50 ms-3">
 							<h5 className="text-1000">부품번호</h5>
-							<input className="form-control mb-xl-3" type="text"  />
+							<input className="form-control mb-xl-3" type="text" value={proposal.component.compo_no} readOnly/>
 						</div>
 					</div>
 
 					<div className="col-12 d-flex justify-content-between">
 						<div className="w-50">
 							<h5 className="text-1000">가격</h5>
-							<input className="form-control mb-xl-3" type="text"  />
+							<input className="form-control mb-xl-3" type="text" value={proposal.price} readOnly/>
 						</div>
 						<div className="w-50 ms-3">
 							<h5 className="text-1000">수량</h5>
-							<input className="form-control mb-xl-3" type="text"  />
+							<input className="form-control mb-xl-3" type="text" value={proposal.quantity} readOnly/>
 						</div>
 					</div>
 				<hr/>
@@ -167,43 +216,47 @@ const ShowContract = ()=>{
 							<div className="tab-content py-3 ps-4 h-100">
 								<div className="tab-pane fade show active" id="pricingTabContent" role="tabpanel">
 									<div className="row g-3 mb-2">
-										<div className="col-12">
+										<div className="col-6">
 											<h6 className="mb-2 text-1000">회사 이름</h6>
-											<input className="form-control" type="text" placeholder="회사이름" />
+											<input className="form-control" type="text" placeholder="회사이름" value={proposal.supplier.suppl_name} readOnly/>
 										</div>
-										<div className="col-12">
+										<div className="col-6">
 											<h6 className="mb-2 text-1000">대표자명</h6>
-											<input className="form-control" type="text" placeholder="대표자명" />
+											<input className="form-control" type="text" placeholder="대표자명" value={proposal.supplier.ceo_name} readOnly/>
 										</div>
 									</div>
 									<div className="row g-3 mb-4">
-										<div className="col-12">
+										<div className="col-6">
+											<h6 className="mb-2 text-1000">전화번호</h6>
+											<input className="form-control" type="text" placeholder="전화번호" value={proposal.supplier.phone} readOnly/>
+										</div>
+                                        <div className="col-6">
 											<h6 className="mb-2 text-1000">분류</h6>
-											<input className="form-control" type="text" placeholder="분류" />
+											<input className="form-control" type="text" placeholder="분류" value={proposal.supplier.category} readOnly/>
 										</div>
 									</div>
 								</div>
 
 								<div className="tab-pane fade h-100" id="restockTabContent" role="tabpanel" aria-labelledby="restockTab">
 									<div className="row g-3 mb-2">
-										<div className="col-6">
+										<div className="col-12">
 											<h6 className="mb-2 text-1000">
-												부품이름<span className="fs--1">(A~D)</span>
+												부품이름
 											</h6>
-                                            <input className="form-control" type="text" placeholder="대표자명" />
+                                            <input className="form-control" type="text" placeholder="부품이름" value={proposal.component.compo_name} readOnly/>
 
 										</div>
-										<div className="col-6">
+										<div className="col-3">
 											<h6 className="mb-2 text-1000">단위</h6>
-                                            <input className="form-control" type="text" placeholder="대표자명" />
+                                            <input className="form-control" type="text" placeholder="단위" value={proposal.component.unit} readOnly/>
 										</div>
 									</div>
 									<div className="row g-3 mb-4">
-										<div className="col-6">
+										<div className="col-12">
 											<h6 className="mb-2 text-1000">
-												세부정보<span className="fs--1">(억원)</span>
+												세부정보
 											</h6>
-											<input className="form-control" type="text" placeholder="영업이익" />
+											<input className="form-control" type="text" placeholder="세부정보" value={proposal.component.detail} readOnly/>
 										</div>
 									</div>
 								</div>
