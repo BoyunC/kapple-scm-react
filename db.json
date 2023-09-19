@@ -586,25 +586,7 @@
       "isContracted": "",
       "createdAt": "2023. 9. 4.",
       "id": 2
-    },
-    {
-      "compoId": "",
-      "price": "",
-      "quantity": "",
-      "defectRate": "",
-      "qualityGrade": "",
-      "productionPeriod": "",
-      "companyName": "",
-      "businessNumber": "",
-      "phoneNumber": "",
-      "businessType": "",
-      "industry": "",
-      "representativeName": "",
-      "companySize": "",
-      "address": "",
-      "isContracted": "",
-      "createdAt": "2023. 9. 5.",
-      "id": 3
     }
+
   ]
 }
